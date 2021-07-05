@@ -1,0 +1,34 @@
+{
+  "name": "bot",
+  "version": "1.6.8",
+  "description": "Amaterasu for kinoko",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "author": "Wizi",
+  "license": "ISC",
+  "dependencies": {
+    "@discordjs/opus": "github:discordjs/opus",
+    "canvas": "^2.7.0",
+    "discord-buttons": "^4.0.0",
+    "discord-giveaways": "^4.4.3",
+    "discord.js": "^12.5.1",
+    "discord.js-commando": "github:discordjs/commando",
+    "dotenv": "^10.0.0",
+    "ffmpeg": "0.0.4",
+    "ffmpeg-static": "^4.2.7",
+    "lyrics-finder": "^21.7.0",
+    "mathjs": "^9.3.2",
+    "minecraft-player": "^1.0.1",
+    "moment": "^2.29.1",
+    "node-fetch": "^2.6.1",
+    "open-graph": "^0.2.1",
+    "spdl-core": "^2.0.2",
+    "spotify-web-api-node": "^5.0.2",
+    "youtube-search": "^1.1.6",
+    "ytdl-core": "^4.8.3",
+    "ytpl": "^2.1.0"
+  }
+}

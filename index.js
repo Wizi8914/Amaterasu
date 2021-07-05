@@ -1,0 +1,110 @@
+const { CommandoClient } = require('discord.js-commando');
+const path = require('path');
+const Canvas = require('canvas');
+const Discord = require('discord.js'); 
+const { welcomesentence } = require('./strings.json')
+
+const client = new CommandoClient({
+    commandPrefix: '>',
+    owner: '505762041789808641',
+    invite: 'https://discord.gg/QYDtAgzDAt'
+});
+
+
+require('discord-buttons')(client)
+require('dotenv').config()
+
+//---------------------Canvas-------------------------
+
+const applyText = (canvas, text) => {
+	const ctx = canvas.getContext('2d');
+
+	let fontSize = 70;
+
+	do {
+
+		ctx.font = `${fontSize -= 10}px sans-serif`;
+
+	} while (ctx.measureText(text).width > canvas.width - 300);
+
+	return ctx.font;
+};
+
+
+const choise = welcomesentence[Math.floor(Math.random() * welcomesentence.length)]
+
+const ChannelID = '859411140945641503'
+
+client.on('guildMemberAdd', async (member) => {
+    const message = `:shinto_shrine: <@${member.id}>  ${choise} !`
+
+    const channel = member.guild.channels.cache.get(ChannelID);
+
+    const canvas = Canvas.createCanvas(700, 250);
+	const ctx = canvas.getContext('2d');
+
+	const background = await Canvas.loadImage('./Welcome.png');
+	ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
+
+	ctx.strokeStyle = '#74037b';
+	ctx.strokeRect(0, 0, canvas.width, canvas.height);
+
+	ctx.beginPath();
+	ctx.arc(125, 125, 100, 0, Math.PI * 2, true);
+	ctx.closePath();
+	ctx.clip();
+
+	const avatar = await Canvas.loadImage(member.user.displayAvatarURL({ format: 'jpg' }));
+	ctx.drawImage(avatar, 25, 25, 200, 200);
+
+	const attachment = new Discord.MessageAttachment(canvas.toBuffer(), 'easteregg.png');
+
+    channel.send(message, attachment);
+})
+
+//----------------------Role------------------------
+
+client.on('guildMemberAdd', (member) => {
+	let membrerole = member.guild.roles.cache.find(role => role.name === '❌ • Non vérifié');
+
+	member.roles.add(membrerole);
+
+	let membrerole1 = member.guild.roles.cache.find(role => role.name === '👘 • Membre');
+
+	member.roles.add(membrerole1);
+})
+
+//---------------------------------------------
+
+
+client.registry
+    .registerDefaultTypes()
+    .registerDefaultGroups()
+    .registerGroup('music')
+	.registerGroup('divers')
+	.registerGroup('utilitaire')
+	.registerGroup('moderation')
+    .registerCommandsIn(path.join(__dirname, 'commands'));
+
+client.server = {
+    queue: [],
+    currentVideo: { url: "", title: "Rien pour le moment" },
+    dispatcher: null,
+    connection: null,
+	playlist: null
+};
+
+client.once('disconnect', () => {
+    console.log('deconnecter');
+});
+
+client.once('ready', () => {
+    console.log(`Connecté en tant que ${client.user.tag} -  (${client.user.id})`);
+    client.user.setActivity('Amaterasu est actuellement en maintenance', { type: 'PLAYING' });
+});
+
+client.on('error', (error) => console.error(error));
+
+
+client.login(process.env.DISCORD_TOKEN);
+
