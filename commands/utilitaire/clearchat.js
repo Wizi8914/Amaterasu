@@ -6,6 +6,7 @@ module.exports = class ClearchatCommand extends Command {
     constructor(client) {
         super(client, {
             name: 'clearchat',
+            aliases: ['cc'],
             group: 'utilitaire',
             memberName: 'clearchat',
             description: 'clearchat',
