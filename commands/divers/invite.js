@@ -39,7 +39,7 @@ module.exports = class InviteCommand extends Command {
 
             for (const invite of sortedInvites) {
                 const count = inviteCounter[invite]
-                i = (i + 1)
+                i++
                 replytext += "`" + i + ".`" + `${invite} a inviter ${count} membre(s) !\n`
             }
 
