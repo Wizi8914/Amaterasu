@@ -389,9 +389,7 @@ module.exports = class HelpCommand extends Command {
             message.say(embed)
 
             return;
-        }
-
-        
+        }      
 
         if (!args) {
             const embed = new MessageEmbed()
