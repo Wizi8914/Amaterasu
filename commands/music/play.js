@@ -1,7 +1,6 @@
 const { VoiceConnection } = require('discord.js');
 const { Command, CommandoMessage } = require("discord.js-commando");
 const { UserNotInVoiceChannel, EmptyPlayMessage } = require('../../strings.json');
-const { youtubekey, spotifyToken } = require('../../config.json');
 
 const ytdl = require('ytdl-core');
 const ytsr = require('youtube-search');
