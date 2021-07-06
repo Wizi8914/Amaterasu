@@ -64,8 +64,6 @@ client.on('guildMemberAdd', async (member) => {
 
 //----------------------Role------------------------
 
-//roles
-
 client.on('guildMemberAdd', (member) => {
 	let membrerole = member.guild.roles.cache.find(role => role.name === '❌ • Non vérifié');
 
@@ -109,4 +107,3 @@ client.on('error', (error) => console.error(error));
 
 
 client.login(process.env.DISCORD_TOKEN);
-
