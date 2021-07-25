@@ -2,7 +2,7 @@ const { MessageEmbed } = require('discord.js');
 const { Command } = require('discord.js-commando');
 
 const { UserNotInVoiceChannel, BotNotInVoiceChannel} = require('../../strings.json')
-const { botimage, botname} = require('../../config.json');
+const { botimage, botname} = require('../../config.js');
 const lyricsFinder = require('lyrics-finder')
 
 module.exports = class LyricsCommand extends Command {

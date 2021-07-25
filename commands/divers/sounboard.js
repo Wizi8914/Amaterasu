@@ -2,7 +2,7 @@ const { UserNotInVoiceChannel, BotNotInVoiceChannel } = require('../../strings.j
 const { Command, CommandoMessage } = require('discord.js-commando');
 const Discord = require('discord.js');
 const path = require('path');
-const { botimage, botname} = require('../../config.json');
+const { botimage, botname} = require('../../config.js');
 const cooldown = new Set()
 
 module.exports = class SounboardCommand extends Command {

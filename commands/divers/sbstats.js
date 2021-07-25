@@ -2,7 +2,7 @@ const { MessageEmbed } = require('discord.js');
 const { Command } = require('discord.js-commando');
 const minecraftPlayer = require('minecraft-player');
 var og = require('open-graph');
-const { botimage, botname} = require('../../config.json');
+const { botimage, botname} = require('../../config.js');
 
 module.exports = class SBCommand extends Command {
     constructor(client) {

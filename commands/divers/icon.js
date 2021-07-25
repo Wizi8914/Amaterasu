@@ -1,5 +1,5 @@
 const { Command } = require('discord.js-commando');
-const { botimage } = require('../../config.json')
+const { botimage } = require('../../config.js')
 
 module.exports = class IconCommand extends Command {
     constructor(client) {

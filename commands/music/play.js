@@ -1,19 +1,27 @@
 const { VoiceConnection } = require('discord.js');
 const { Command, CommandoMessage } = require("discord.js-commando");
 const { UserNotInVoiceChannel, EmptyPlayMessage } = require('../../strings.json');
+const { ErelaClient } = require('erela.js')
 
 const ytdl = require('ytdl-core');
 const ytsr = require('youtube-search');
 const ytpl = require('ytpl');
 const spdl = require('spdl-core')
 
-var SpotifyWebApi = require('spotify-web-api-node');
-
-var spotifyApi = new SpotifyWebApi ({
-    accessToken: process.env.SPOTIFY_TOKEN
-});
-
 require('dotenv').config()
+
+
+
+client.music = new ErelaClient(client, [
+    {
+        host: process.env.LAVALINKHOST,
+        port: 443,
+        password: process.env.LAVALINKPASSWORD
+    }
+]);
+
+client.music.on("nodeConnect", node => console.log("new node connected"))
+
 
 module.exports = class PlayCommand extends Command {
     constructor(client) {

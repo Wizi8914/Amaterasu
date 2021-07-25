@@ -1,7 +1,7 @@
 const { MessageEmbed } = require('discord.js');
 const { Command } = require('discord.js-commando');
 const minecraftPlayer = require('minecraft-player');
-const { botimage, botname} = require('../../config.json');
+const { botimage, botname} = require('../../config.js');
 
 module.exports = class McCommand extends Command {
     constructor(client) {

@@ -1,7 +1,7 @@
 const math = require('mathjs');
 const { Command } = require('discord.js-commando');
 const { MessageEmbed } = require('discord.js');
-const { botimage, botname} = require('../../config.json');
+const { botimage, botname} = require('../../config.js');
 
 module.exports = class CalculCommand extends Command {
     constructor(client) {
