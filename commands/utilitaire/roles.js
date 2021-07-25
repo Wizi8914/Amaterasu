@@ -1,6 +1,6 @@
 const { MessageEmbed } = require('discord.js');
 const { Command } = require('discord.js-commando');
-const { botimage, botname} = require('../../config.json');
+const { botimage, botname} = require('../../config.js');
 const { UserMissingPermision } = require('../../strings.json');
 
 module.exports = class RoolesCommand extends Command {

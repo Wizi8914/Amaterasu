@@ -1,7 +1,7 @@
 const { MessageEmbed } = require('discord.js');
 const { Command, CommandoMessage } = require('discord.js-commando');
 const { BotNotInVoiceChannel} = require('../../strings.json');
-const { botimage } = require('../../config.json');
+const { botimage } = require('../../config.js');
 
 module.exports = class QueueCommand extends Command {
     constructor(client) {

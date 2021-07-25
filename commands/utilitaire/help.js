@@ -1,7 +1,7 @@
 const { Command, CommandoMessage } = require('discord.js-commando');
 const { MessageEmbed } = require('discord.js');
 const { Commanddontexist } = require('../../strings.json');
-const { botimage, botname} = require('../../config.json');
+const { botimage, botname} = require('../../config.js');
 
 module.exports = class HelpCommand extends Command {
     constructor(client) {

@@ -20,6 +20,7 @@
     "erela.js": "^2.3.3",
     "ffmpeg": "0.0.4",
     "ffmpeg-static": "^4.2.7",
+    "lavasfy": "^2.3.0",
     "lyrics-finder": "^21.7.0",
     "mathjs": "^9.3.2",
     "minecraft-player": "^1.0.1",
@@ -29,7 +30,7 @@
     "spdl-core": "^2.0.2",
     "spotify-web-api-node": "^5.0.2",
     "youtube-search": "^1.1.6",
-    "ytdl-core": "^4.8.3",
+    "ytdl-core": "^4.9.0",
     "ytpl": "^2.1.0"
   }
 }

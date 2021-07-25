@@ -1,26 +1,25 @@
 const { VoiceConnection } = require('discord.js');
 const { Command, CommandoMessage } = require("discord.js-commando");
 const { UserNotInVoiceChannel, EmptyPlayMessage } = require('../../strings.json');
-const { ErelaClient } = require('erela.js')
 
 const ytdl = require('ytdl-core');
 const ytsr = require('youtube-search');
 const ytpl = require('ytpl');
-const spdl = require('spdl-core')
+const { LavasfyClient } = require('lavasfy');
 
 require('dotenv').config()
 
-
-
-client.music = new ErelaClient(client, [
+const lavasfy = new LavasfyClient({
+    clientID: process.env.SPOTIFY_CLIENT_ID,
+    clientSecret: process.env.SPOTIFY_CLIENT_SECRET
+}, [
     {
-        host: process.env.LAVALINKHOST,
-        port: 443,
-        password: process.env.LAVALINKPASSWORD
+        id: 'main',
+        host: process.env.LAVALINK_HOST,
+        port: process.env.LAVALINK_PORT,
+        password: process.env.LAVALINK_PASSWORD
     }
-]);
-
-client.music.on("nodeConnect", node => console.log("new node connected"))
+])
 
 
 module.exports = class PlayCommand extends Command {
@@ -62,30 +61,19 @@ module.exports = class PlayCommand extends Command {
             message.say(EmptyPlayMessage)
         }
 
-        await voicechannel.join().then((connection) => {
+        await voicechannel.join().then(async(connection) => {
             if(term.startsWith('https://open.spotify.com/')) {
                 //spotify
-                var result = term.split(/[/?]/)[4];
 
-                spotifyApi.getPlaylistTracks(result).then(
-                    function(data) {
+                let REGEX = lavasfy.spotifyPattern;
 
-                        server.queue = [];
-                        server.currentVideo = { title: data.body.items[0].track.name, url : data.body.items[0].track.external_urls.spotify}
+                if(term.match(REGEX)) {
+                    let node = lavasfy.nodes.get("main")
+                    let res = await node.load(term)
+                }
 
-                        for (let i = 1; i < data.body.items.length; i++) {
-                            server.queue.push({ title: data.body.items[i].track.name, url : data.body.items[i].track.external_urls.spotify});
-                            
-                        }
-                        message.say(":white_check_mark: `" + data.body.items.length + "` musiques on été ajouter dans la file d'attente");
-
-                    }
-
-                );
-                this.runVideo(message, connection)
-
-                server.playlist = 'spotify'
-
+                console.log(res)
+                
             } else {
                 //playlist yt
                 if (ytpl.validateID(term)) {
@@ -138,14 +126,11 @@ module.exports = class PlayCommand extends Command {
     async runVideo(message, connection) {
         const server = message.client.server;
 
+        const dispatcher = connection.play(ytdl(server.currentVideo.url, { filter: 'audioonly' }));
 
-        if (server.playlist === 'youtube') {
-            const dispatcher = connection.play(ytdl(server.currentVideo.url, { filter: 'audioonly' }));
-
-            server.queue.shift();
-            server.dispatcher = dispatcher;
-            server.connection = connection;
-
+        server.queue.shift();
+        server.dispatcher = dispatcher;
+        server.connection = connection;
 
             dispatcher.on('finish', () => {
                 if (server.queue[0]) {
@@ -154,25 +139,6 @@ module.exports = class PlayCommand extends Command {
                 }
             });
 
-
-        } else if (server.playlist === 'spotify') {
-            const dispatcher = connection.play(await spdl(server.currentVideo.url))
-
-            server.queue.shift();
-            server.dispatcher = dispatcher;
-            server.connection = connection;
-
-
-            dispatcher.on('finish', () => {
-                if (server.queue[0]) {
-                    server.currentVideo = server.queue[0];
-                    return this.runVideo(message, connection, server.currentVideo.url);
-                }
-            });
-        }
-
-        setTimeout(() => {
-            return message.say(":notes: Entrain de jouer - " + "`" + server.currentVideo.title + "`");
-        }, 700);
+            message.say(":notes: Entrain de jouer - " + "`" + server.currentVideo.title + "`");
     }
 }
