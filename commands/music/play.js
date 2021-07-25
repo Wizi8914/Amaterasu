@@ -132,7 +132,6 @@ module.exports = class PlayCommand extends Command {
 
 
         if (server.playlist === 'youtube') {
-            console.log('1')
             const dispatcher = connection.play(ytdl(server.currentVideo.url, { filter: 'audioonly' }));
 
             server.queue.shift();
@@ -149,7 +148,6 @@ module.exports = class PlayCommand extends Command {
 
 
         } else if (server.playlist === 'spotify') {
-            console.log('2')
             const dispatcher = connection.play(await spdl(server.currentVideo.url))
 
             server.queue.shift();

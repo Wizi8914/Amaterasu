@@ -17,6 +17,7 @@
     "discord.js": "^12.5.1",
     "discord.js-commando": "github:discordjs/commando",
     "dotenv": "^10.0.0",
+    "erela.js": "^2.3.3",
     "ffmpeg": "0.0.4",
     "ffmpeg-static": "^4.2.7",
     "lyrics-finder": "^21.7.0",
