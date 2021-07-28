@@ -1,8 +1,8 @@
 const { CommandoClient } = require('discord.js-commando');
 const path = require('path');
 const Canvas = require('canvas');
-const Discord = require('discord.js'); 
-const { welcomesentence } = require('./strings.json')
+const { Discord, Client} = require('discord.js'); 
+const { welcomesentence } = require('./strings.json');
 
 const client = new CommandoClient({
     commandPrefix: '>',
@@ -10,9 +10,54 @@ const client = new CommandoClient({
     invite: 'https://discord.gg/QYDtAgzDAt'
 });
 
+const clientt = new Client();
 
 require('discord-buttons')(client)
 require('dotenv').config()
+
+//--------------------- LAVALINK ------------------------
+
+
+const { LavasfyClient } = require('lavasfy');
+const Erelajs = require('erela.js');
+
+
+const lavasfy = new LavasfyClient({
+    clientID: process.env.SPOTIFY_CLIENT_ID,
+    clientSecret: process.env.SPOTIFY_CLIENT_SECRET
+}, [
+    {
+        id: 'main',
+        host: process.env.LAVALINK_HOST,
+        port: process.env.LAVALINK_PORT,
+        password: process.env.LAVALINK_PASSWORD
+    }
+]);
+
+const Manager = new Erelajs.Manager({
+    nodes: [
+        {
+            host: process.env.LAVALINK_HOST,
+            port: 443,
+            password: process.env.LAVALINK_PASSWORD
+        }
+    ],
+    send(id, payload) {
+        const guild = clientt.guilds.get(id)
+        if(guild) guild.shard.sendWS(payload.op, payload.d);
+    }
+
+})
+
+Manager.on("nodeConnect", (node) => {
+    console.log(`connecter a ${node.options.identifier}`)
+})
+
+Manager.on("nodeError", (node, error) => {
+    console.log(`Node ${node.options.identifier} had an error: ${error.message}`)
+})
+
+
 
 //---------------------Canvas-------------------------
 
@@ -99,7 +144,7 @@ client.once('disconnect', () => {
 });
 
 client.once('ready', () => {
-    console.log(`Connecté en tant que ${client.user.tag} -  (${client.user.id})`);
+    console.log(`Connecté en tant que ${client.user.tag} - (${client.user.id})`);
     client.user.setActivity('Amaterasu est actuellement en maintenance', { type: 'PLAYING' });
 });
 

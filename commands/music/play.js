@@ -5,21 +5,8 @@ const { UserNotInVoiceChannel, EmptyPlayMessage } = require('../../strings.json'
 const ytdl = require('ytdl-core');
 const ytsr = require('youtube-search');
 const ytpl = require('ytpl');
-const { LavasfyClient } = require('lavasfy');
 
 require('dotenv').config()
-
-const lavasfy = new LavasfyClient({
-    clientID: process.env.SPOTIFY_CLIENT_ID,
-    clientSecret: process.env.SPOTIFY_CLIENT_SECRET
-}, [
-    {
-        id: 'main',
-        host: process.env.LAVALINK_HOST,
-        port: process.env.LAVALINK_PORT,
-        password: process.env.LAVALINK_PASSWORD
-    }
-])
 
 
 module.exports = class PlayCommand extends Command {
