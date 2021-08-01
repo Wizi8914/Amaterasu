@@ -38,7 +38,7 @@ const Manager = new Erelajs.Manager({
     nodes: [
         {
             host: process.env.LAVALINK_HOST,
-            port: 443,
+            port: 8000,
             password: process.env.LAVALINK_PASSWORD
         },
     ],
