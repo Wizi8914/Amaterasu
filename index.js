@@ -3,14 +3,14 @@ const path = require('path');
 const Canvas = require('canvas');
 const { Discord, Client} = require('discord.js'); 
 const { welcomesentence } = require('./strings.json');
+const jsoning = require('jsoning');
+const database = new jsoning('database.json');
 
 const client = new CommandoClient({
     commandPrefix: '>',
     owner: '505762041789808641',
     invite: 'https://discord.gg/QYDtAgzDAt'
 });
-
-const clientt = new Client();
 
 require('discord-buttons')(client)
 require('dotenv').config()
@@ -40,24 +40,24 @@ const Manager = new Erelajs.Manager({
             host: process.env.LAVALINK_HOST,
             port: 443,
             password: process.env.LAVALINK_PASSWORD
-        }
+        },
     ],
     send(id, payload) {
-        const guild = clientt.guilds.get(id)
+        const guild = client.guilds.get(id)
+        console.log('1')
         if(guild) guild.shard.sendWS(payload.op, payload.d);
-    }
+    },
 
 })
 
 Manager.on("nodeConnect", (node) => {
     console.log(`connecter a ${node.options.identifier}`)
+    console.log('1')
 })
 
 Manager.on("nodeError", (node, error) => {
     console.log(`Node ${node.options.identifier} had an error: ${error.message}`)
 })
-
-
 
 //---------------------Canvas-------------------------
 
