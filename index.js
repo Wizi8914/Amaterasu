@@ -19,8 +19,6 @@ require('dotenv').config()
 
 
 const { LavasfyClient } = require('lavasfy');
-const Erelajs = require('erela.js');
-
 
 const lavasfy = new LavasfyClient({
     clientID: process.env.SPOTIFY_CLIENT_ID,
@@ -34,30 +32,31 @@ const lavasfy = new LavasfyClient({
     }
 ]);
 
+
 const Manager = new Erelajs.Manager({
     nodes: [
         {
-            host: process.env.LAVALINK_HOST,
+            host: "localhost",
             port: 8000,
-            password: process.env.LAVALINK_PASSWORD
+            password: "wiwi8914"
         },
     ],
     send(id, payload) {
         const guild = client.guilds.get(id)
-        console.log('1')
         if(guild) guild.shard.sendWS(payload.op, payload.d);
     },
 
 })
 
-Manager.on("nodeConnect", (node) => {
+    .on("nodeConnect", (node) => {
     console.log(`connecter a ${node.options.identifier}`)
-    console.log('1')
-})
+    })
 
-Manager.on("nodeError", (node, error) => {
+    .on("nodeError", (node, error) => {
     console.log(`Node ${node.options.identifier} had an error: ${error.message}`)
-})
+    })
+
+
 
 //---------------------Canvas-------------------------
 
