@@ -1,7 +1,7 @@
 const { CommandoClient } = require('discord.js-commando');
 const path = require('path');
 const Canvas = require('canvas');
-const { Discord, Client} = require('discord.js'); 
+const { Discord } = require('discord.js'); 
 const { welcomesentence } = require('./strings.json');
 const jsoning = require('jsoning');
 const database = new jsoning('database.json');
@@ -24,8 +24,6 @@ require('dotenv').config()
 
 const { LavasfyClient } = require('lavasfy');
 const Erelajs = require('erela.js');
-
-const clientt = new Client()
 
 const lavasfy = new LavasfyClient({
     clientID: process.env.SPOTIFY_CLIENT_ID,
