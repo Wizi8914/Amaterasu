@@ -13,7 +13,7 @@ module.exports = {
 const client = new CommandoClient({
     commandPrefix: '>',
     owner: '505762041789808641',
-    invite: 'https://discord.gg/QYDtAgzDAt'
+    invite: 'https://discord.gg/WXSkpYauty'
 });
 
 require('discord-buttons')(client)

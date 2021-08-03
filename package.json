@@ -7,7 +7,6 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js",
     "lavalink": "java -jar Lavalink.jar"
-
   },
   "repository": {
     "type": "git",
@@ -26,6 +25,7 @@
     "erela.js": "^2.3.3",
     "ffmpeg": "0.0.4",
     "ffmpeg-static": "^4.2.7",
+    "google-search-results-nodejs": "^2.0.1",
     "jsoning": "^0.11.22",
     "lavasfy": "^2.3.0",
     "lyrics-finder": "^21.7.0",
