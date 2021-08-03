@@ -1,9 +1,9 @@
 server:
-  port: 8000
+  port: 4321
   address: 0.0.0.0
 lavalink:
   server:
-    password: "wiwi8914"
+    password: "pass"
     sources:
       youtube: true
       bandcamp: true

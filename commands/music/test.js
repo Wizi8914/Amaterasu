@@ -1,5 +1,7 @@
 const { Command } = require('discord.js-commando');
 const { MessageButton } = require('discord-buttons');
+const { database } = require('../..');
+const { Manager } = require('erela.js');
 
 module.exports = class TestCommand extends Command {
     constructor(client) {
@@ -12,6 +14,8 @@ module.exports = class TestCommand extends Command {
     }
     
     async run(message, args) {
+
+      const client = this;
 
      //   const embed = new MessageEmbed()
        //     .setTitle('osef')
@@ -32,7 +36,22 @@ module.exports = class TestCommand extends Command {
            // buttons: [yes,no]
       //  })
 
+      let totalMembers;
 
+
+      this.client.guilds.cache.size
+
+      let i = 0;
+
+      for (const guild of this.client.guilds.cache) {
+        i++
+        totalMembers = (await guild[1].name)
+      }
+
+
+      console.log(totalMembers)
+
+     // await database.push('info', totalMembers)
     }
 }
 

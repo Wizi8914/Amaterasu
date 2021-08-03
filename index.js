@@ -6,6 +6,10 @@ const { welcomesentence } = require('./strings.json');
 const jsoning = require('jsoning');
 const database = new jsoning('database.json');
 
+module.exports = {
+    database
+}
+
 const client = new CommandoClient({
     commandPrefix: '>',
     owner: '505762041789808641',
@@ -19,6 +23,9 @@ require('dotenv').config()
 
 
 const { LavasfyClient } = require('lavasfy');
+const Erelajs = require('erela.js');
+
+const clientt = new Client()
 
 const lavasfy = new LavasfyClient({
     clientID: process.env.SPOTIFY_CLIENT_ID,
@@ -33,28 +40,26 @@ const lavasfy = new LavasfyClient({
 ]);
 
 
-const Manager = new Erelajs.Manager({
+client.manager = new Erelajs.Manager({
     nodes: [
         {
-            host: "localhost",
-            port: 8000,
-            password: "wiwi8914"
+            host: process.env.LAVALINK_HOST,
+            port: 4321,
+            password: process.env.LAVALINK_PASSWORD
         },
     ],
     send(id, payload) {
-        const guild = client.guilds.get(id)
-        if(guild) guild.shard.sendWS(payload.op, payload.d);
+        const guild = client.guilds.cache.get(id)
+        if(guild) {
+            guild.shard.send(payload.op, payload.d)
+        }
     },
 
 })
 
-    .on("nodeConnect", (node) => {
-    console.log(`connecter a ${node.options.identifier}`)
-    })
+.on("nodeConnect", node => console.log(`Node ${node.options.identifier} connected`))
 
-    .on("nodeError", (node, error) => {
-    console.log(`Node ${node.options.identifier} had an error: ${error.message}`)
-    })
+.on("nodeError", (node, error) => console.log(`Node ${node.options.identifier} had an error: ${error.message}`))
 
 
 
@@ -145,6 +150,7 @@ client.once('disconnect', () => {
 client.once('ready', () => {
     console.log(`Connecté en tant que ${client.user.tag} - (${client.user.id})`);
     client.user.setActivity('Amaterasu est actuellement en maintenance', { type: 'PLAYING' });
+    client.manager.init(client.user.id)
 });
 
 client.on('error', (error) => console.error(error));
