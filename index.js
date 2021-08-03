@@ -19,6 +19,7 @@ const client = new CommandoClient({
 require('discord-buttons')(client)
 require('dotenv').config()
 
+
 //--------------------- LAVALINK ------------------------
 
 
@@ -32,7 +33,7 @@ const lavasfy = new LavasfyClient({
     {
         id: 'main',
         host: process.env.LAVALINK_HOST,
-        port: process.env.LAVALINK_PORT,
+        port: 8000,
         password: process.env.LAVALINK_PASSWORD
     }
 ]);
@@ -42,7 +43,7 @@ client.manager = new Erelajs.Manager({
     nodes: [
         {
             host: process.env.LAVALINK_HOST,
-            port: 4321,
+            port: process.env.LAVALINK_PORT,
             password: process.env.LAVALINK_PASSWORD
         },
     ],
@@ -60,6 +61,7 @@ client.manager = new Erelajs.Manager({
 .on("nodeError", (node, error) => console.log(`Node ${node.options.identifier} had an error: ${error.message}`))
 
 
+client.on('raw', (d) => client.manager.updateVoiceState(d))
 
 //---------------------Canvas-------------------------
 
