@@ -25,6 +25,7 @@ require('dotenv').config()
 
 const { LavasfyClient } = require('lavasfy');
 const Erelajs = require('erela.js');
+const { port } = require('./config');
 
 const lavasfy = new LavasfyClient({
     clientID: process.env.SPOTIFY_CLIENT_ID,
@@ -33,7 +34,7 @@ const lavasfy = new LavasfyClient({
     {
         id: 'main',
         host: process.env.LAVALINK_HOST,
-        port: 8000,
+        port: process.env.LAVALINK_PORT,
         password: process.env.LAVALINK_PASSWORD
     }
 ]);
@@ -43,7 +44,7 @@ client.manager = new Erelajs.Manager({
     nodes: [
         {
             host: process.env.LAVALINK_HOST,
-            port: process.env.LAVALINK_PORT,
+            port: 8000,
             password: process.env.LAVALINK_PASSWORD
         },
     ],

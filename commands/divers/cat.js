@@ -1,4 +1,5 @@
 const { Command } = require('discord.js-commando');
+const { default: fetch } = require('node-fetch');
  
 module.exports = class catCommand extends Command {
     constructor(client) {
@@ -11,6 +12,9 @@ module.exports = class catCommand extends Command {
     }
  
     async run(message, args) {
-        let 
+        let url = await fetch("https://aws.random.cat/meow");
+        let responce = await url.json()
+        
+        console.log(responce)
     }
 }

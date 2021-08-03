@@ -33,11 +33,10 @@ module.exports = class McCommand extends Command {
             .setTitle(`Information de ${username}`)
             .addField('UUID:', uuid)
             .setImage(mcskin)
-            .addField('Historique des pseudos', usernameHistory)
+        //    .addField('Historique des pseudos', usernameHistory)
             .setFooter(botname, botimage)
             .setTimestamp()
 
-        console.log(usernameHistory)
 
         message.say(embed)
 

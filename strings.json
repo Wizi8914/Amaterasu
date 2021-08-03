@@ -1,20 +1,20 @@
 {
-    "BotNotInVoiceChannel" : ":x: Amaterasu n'est pas dans un salon vocal ! Tape `join` pour l'ajouter !",
-    "UserNotInVoiceChannel" : ":x: Tu doit être dans un `salon vocal` pour pouvoir utliser cette commande !",
-    "BotIsNotInSameChannel" : ":x: Tu doit être dans le même `salon vocal` que Amaterasu pouvoir utiliser cette commande !",
-    "UserMissingPermision" : ":x: Vous n'avez pas la permission seul un administrateur peut executer cette commande !",
-    "EmptyMessage": ":x: Amaterasu ne peut pas envoyer un message vide !",
-    "EmptyPlayMessage": ":x: Vous devez citer une musique ou alors un url!",
-    "Commanddontexist": ":x: Cette commande n'existe pas !",
+    "BotNotInVoiceChannel" : ":x: **Amaterasu n'est pas dans un salon vocal ! Tape `join` pour l'ajouter !**",
+    "UserNotInVoiceChannel" : ":x: **Tu doit être dans un `salon vocal` pour pouvoir utliser cette commande !**",
+    "BotIsNotInSameChannel" : ":x: **Tu doit être dans le même `salon vocal` que Amaterasu pouvoir utiliser cette commande !**",
+    "UserMissingPermision" : ":x: **Vous n'avez pas la permission seul un administrateur peut executer cette commande !**",
+    "EmptyMessage": ":x: **Amaterasu ne peut pas envoyer un message vide !**",
+    "EmptyPlayMessage": ":x: **Vous devez citer une musique ou alors un url!**",
+    "Commanddontexist": ":x: **Cette commande n'existe pas !**",
 
 
 
 
     "welcomesentence": [
-        "Bienvenue au Japon !",
-        "a attéri sans embûche !",
-        "Bienvenue sur kinoko !",
-        "veut découvrir le Japon !"
+        "**Bienvenue au Japon !**",
+        "**a attéri sans embûche !**",
+        "**Bienvenue sur kinoko !**",
+        "**veut découvrir le Japon !**"
     ],
 
 
