@@ -15,7 +15,10 @@ module.exports = class ClearchatCommand extends Command {
 
     async run(message, args) {
         if(!message.member.hasPermission("ADMINISTRATOR")) return message.say(UserMissingPermision);
-        if(!args[0]) return message.say(":x: Il faut mettre un nombre !");
+        if(!args[0]) return message.say(":x: **Il faut mettre un nombre !**");
+
+        if(!args <= 100) return message.say(':x: ** Il faut mettre un nombre entre 1 et 100 seulement !**')
+
         args ++;
         message.channel.bulkDelete(args).then(() => {
             args --;
