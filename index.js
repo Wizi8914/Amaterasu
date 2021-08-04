@@ -1,4 +1,4 @@
-const { CommandoClient } = require('discord.js-commando');
+const { CommandoClient, Client } = require('discord.js-commando');
 const path = require('path');
 const Canvas = require('canvas');
 const { Discord } = require('discord.js'); 
@@ -6,9 +6,9 @@ const { welcomesentence } = require('./strings.json');
 const jsoning = require('jsoning');
 const database = new jsoning('database.json');
 
-module.exports = {
-    database
-}
+require('dotenv').config()
+
+// ----------------- create client ----------------------------
 
 const client = new CommandoClient({
     commandPrefix: '>',
@@ -16,16 +16,29 @@ const client = new CommandoClient({
     invite: 'https://discord.gg/WXSkpYauty'
 });
 
-require('discord-buttons')(client)
-require('dotenv').config()
 
+require('discord-buttons')(client)
+
+//----------------- DATABASE ---------------------
+
+module.exports = {
+    database
+}
+
+class DiscordDB extends Client {
+    constructor(props) {
+        super(props);
+
+
+        console.log(client.cache)
+    }
+}
 
 //--------------------- LAVALINK ------------------------
 
 
 const { LavasfyClient } = require('lavasfy');
-const Erelajs = require('erela.js');
-const { port } = require('./config');
+const { Manager } = require('erela.js');
 
 const lavasfy = new LavasfyClient({
     clientID: process.env.SPOTIFY_CLIENT_ID,
@@ -40,7 +53,7 @@ const lavasfy = new LavasfyClient({
 ]);
 
 
-client.manager = new Erelajs.Manager({
+client.manager = new Manager({
     nodes: [
         {
             host: process.env.LAVALINK_HOST,
@@ -57,12 +70,12 @@ client.manager = new Erelajs.Manager({
 
 })
 
-.on("nodeConnect", node => console.log(`Node ${node.options.identifier} connected`))
+client.manager.on("nodeConnect", node => console.log(`Node ${node.options.identifier} connected`))
 
-.on("nodeError", (node, error) => console.log(`Node ${node.options.identifier} had an error: ${error.message}`))
+client.manager.on("nodeError", (node, error) => console.log(`Node ${node.options.identifier} had an error: ${error.message}`))
 
 
-client.on('raw', (d) => client.manager.updateVoiceState(d))
+client.on("raw", (d) => client.manager.updateVoiceState(d));
 
 //---------------------Canvas-------------------------
 
@@ -124,7 +137,7 @@ client.on('guildMemberAdd', (member) => {
 	member.roles.add(membrerole1);
 })
 
-//---------------------------------------------
+//-----------------  REGGISTERING COMMANDS  -------------------------
 
 
 client.registry
@@ -158,3 +171,34 @@ client.on('error', (error) => console.error(error));
 
 
 client.login(process.env.DISCORD_TOKEN);
+
+
+
+client.on("message", async (message) => {
+    if (message.content.startsWith("{play")) {
+        // Note: This example only works for retrieving tracks using a query, such as "Rick Astley - Never Gonna Give You Up".
+    
+        // Retrieves tracks with your query and the requester of the tracks.
+        // Note: This retrieves tracks from youtube by default, to get from other sources you must enable them in application.yml and provide a link for the source.
+        // Note: If you want to "search" for tracks you must provide an object with a "query" property being the query to use, and "source" being one of "youtube", "soundcloud".
+        console.log('uwu')
+
+        const res = await client.manager.search(
+            message.content.slice(6),
+            message.author
+        );
+    
+        // Create a new player. This will return the player if it already exists.
+        const player = client.manager.create({
+            guild: message.guild.id,
+            voiceChannel: message.member.voice.channel.id,
+            textChannel: message.channel.id,
+            selfDeafen: false,
+        });
+
+        console.log(player)
+    
+        // Connect to the voice channel.
+        player.connect();
+    }
+})

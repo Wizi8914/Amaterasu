@@ -15,26 +15,26 @@ module.exports = class TestCommand extends Command {
     
     async run(message, args) {
 
-      const client = this;
+     // const client = this;
 
-        const embed = new MessageEmbed()
-            .setTitle('osef')
-            .setColor('RED')
+       // const embed = new MessageEmbed()
+      //      .setTitle('osef')
+//            .setColor('RED')
 
-        const yes = new MessageButton()
-            .setStyle('green')
-            .setLabel('yes')
-            .setID('uwu')
+  //      const yes = new MessageButton()
+    //        .setStyle('green')
+      //      .setLabel('yes')
+        //    .setID('uwu')
 
-        const no = new MessageButton()
-            .setStyle('red')
-            .setLabel('no')
-            .setID('nouwu')
+   //     const no = new MessageButton()
+     //       .setStyle('red')
+       //     .setLabel('no')
+         //   .setID('nouwu')
 
-        message.say({
-            embed: embed,
-            buttons: [yes,no]
-        })
+    //    message.say({
+      //      embed: embed,
+        //    buttons: [yes,no]
+     //   })
 
       let totalMembers;
 
@@ -47,7 +47,6 @@ module.exports = class TestCommand extends Command {
         i++
         totalMembers = (await guild[1].name)
       }
-
 
       console.log(totalMembers)
 

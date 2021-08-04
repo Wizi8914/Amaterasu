@@ -18,7 +18,7 @@ module.exports = class imageCommand extends Command {
 
     async run(message, args) {
 
-        message.say('recherche ...').then((resultmessage) => {
+        message.say('**Recherche...**').then((resultmessage) => {
             const param = {
                 q: args,
                 tbm: 'isch',
@@ -34,6 +34,7 @@ module.exports = class imageCommand extends Command {
                     .setTitle(`Image aléatoire de ${args}`)
                     .setImage(img)
                     .setURL(img)
+                    .setDescription("Si L'`image` ne charge pas clicker sur le **titre**")
                     .setFooter(botname, botimage)
                     .setTimestamp()
                 

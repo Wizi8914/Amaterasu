@@ -2,6 +2,7 @@ const { Command } = require('discord.js-commando');
 const { MessageEmbed } = require('discord.js');
 const fetch = require('node-fetch');
 const { EmptyMessage } = require('../../strings.json');
+const { botname, botimage } = require('../../config');
 
 require('dotenv').config()
 
@@ -21,21 +22,28 @@ module.exports = class GifCommand extends Command {
             return message.say(EmptyMessage)
         }
 
-        let url = `https://g.tenor.com/v1/search?q=${args}&key=${process.env.TENOR_KEY}&contentfilter=high`
-        let response = await fetch(url);
-        let json = await response.json();
-        const index = Math.floor(Math.random() * json.results.length);
+        message.say('**Recherche...**').then(async (resultmessage) => {
 
 
-        message.say(`Gif Aléatoire de ${args}`);
-        message.say(json.results[index].url)
+            let url = `https://api.giphy.com/v1/gifs/search?api_key=${process.env.GIPHY_KEY}&limit=30&q=${args}`
+            let response = await fetch(url);
+            let json = await response.json();
 
-//        const embed = new MessageEmbed()
-//            .setColor('BLUE')
-//            .setTitle(`GIF aléatoire de ${args}`)
-//            .setImage(json.results[index].url)
-//            .setFooter('Galabot','https://i.ibb.co/VNRfF2P/logo-galstar.png');
+            const image = json.data[Math.floor(Math.random() * 30)].url
 
-//        message.say(embed);
+            resultmessage.edit(`Gif Aléatoire de ${args}`);
+            message.say(image)
+
+    //        const embed = new MessageEmbed()
+    //            .setColor('BLUE')
+    //            .setTitle(`GIF aléatoire de ${args}`)
+    //            .setImage(image)
+    //            .setURL(image)
+    //            .setFooter(botname, botimage)
+    //            .setTimestamp()
+
+    //        message.say(embed);
+
+        })
     }
 }

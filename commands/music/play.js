@@ -2,10 +2,6 @@ const { VoiceConnection } = require('discord.js');
 const { Command, CommandoMessage } = require("discord.js-commando");
 const { UserNotInVoiceChannel, EmptyPlayMessage } = require('../../strings.json');
 
-const ytdl = require('ytdl-core');
-const ytsr = require('youtube-search');
-const ytpl = require('ytpl');
-
 require('dotenv').config()
 
 
@@ -17,13 +13,7 @@ module.exports = class PlayCommand extends Command {
             group: 'music',
             memberName: 'play',
             description: 'lit une video youtube',
-            args: [
-                {
-                    key: 'term',
-                    prompt: 'Quel musique veut tu lire ?',
-                    type: 'string'
-                }
-            ]
+                
         });
     }
 
@@ -32,100 +22,44 @@ module.exports = class PlayCommand extends Command {
      * @param {CommandoMessage} message 
      * @param {String} query
      */
-    async run(message, { term }) {
+
+    async run(message, args) {
         const voicechannel = message.member.voice.channel;
+        const server = message.client.server;
+
         if (!voicechannel) {
             return message.say(UserNotInVoiceChannel)
-        }
+        } 
+        
+     //   if (!args) {
+       //     return message.say(EmptyPlayMessage)
+       // }
 
-        const server = message.client.server;
 
-        if (!voicechannel) {
-            return message.say(UserNotInVoiceChannel);
-        }
+        const res = this.client.manager.search(
+            message.content.slice(6),
+            message.author
+          );
 
-        if(!term) {
-            message.say(EmptyPlayMessage)
-        }
+        const player = this.client.manager.create({
+            guild: message.guild.id,
+            voiceChannel: message.member.voice.channel.id,
+            textChannel: message.channel.id,
+            selfDeafen: false,
+          });
 
-        await voicechannel.join().then(async(connection) => {
-            if(term.startsWith('https://open.spotify.com/')) {
-                //spotify
 
-                let REGEX = lavasfy.spotifyPattern;
+        if(player.state != 'CONNECTED') await player.connect()
 
-                if(term.match(REGEX)) {
-                    let node = lavasfy.nodes.get("main")
-                    let res = await node.load(term)
-                }
+       // voicechannel.join()
 
-                console.log(res)
-                
-            } else {
-                //playlist yt
-                if (ytpl.validateID(term)) {
+     //  player.connect()
 
-                    server.queue = [];
-                    server.currentVideo = { url: "", title: "Rien pour le moment" };
 
-                    ytpl(term).then((result) => {
-                        result.items.forEach((video) => {
-                            server.queue.push({ title: video.title, url : video.shortUrl});
-                        });
-                        
-                        server.currentVideo = server.queue[0]
-                        this.runVideo(message, connection).then(() => {
-                            message.say(":white_check_mark: `" + result.items.length + "` musiques on été ajouter dans la file d'attente");
-                        });
-                    })
-                    server.playlist = 'youtube'
+       console.log(res)
 
-                } else {
-                    // vidéo
-                    ytsr(term, { key: process.env.YOUTUBE_KEY, maxResults: 1, type: 'video' }).then((results) => {
-    
-                        if (results.results[0]) {
-                            const foundVideo = { url: results.results[0].link, title: results.results[0].title };
-    
-                            if (server.currentVideo.url != "") {
-                                server.queue.push(foundVideo);
-                                return message.say(":white_check_mark: " + "`" + foundVideo.title + "`" + " - Ajouter a la file d'attente !");
-                            }
-    
-                            server.currentVideo = foundVideo;
-                            this.runVideo(message, connection);
-                        }
-                        server.playlist = 'spotify'
-                    });
-                }
-            }
+        console.log(player)
 
-        });
 
-    }
-
-    /**
-     * 
-     * @param {CommandoMessage} message 
-     * @param {VoiceConnection} connection 
-     * @param {*} video 
-     */
-    async runVideo(message, connection) {
-        const server = message.client.server;
-
-        const dispatcher = connection.play(ytdl(server.currentVideo.url, { filter: 'audioonly' }));
-
-        server.queue.shift();
-        server.dispatcher = dispatcher;
-        server.connection = connection;
-
-            dispatcher.on('finish', () => {
-                if (server.queue[0]) {
-                    server.currentVideo = server.queue[0];
-                    return this.runVideo(message, connection, server.currentVideo.url);
-                }
-            });
-
-            message.say(":notes: Entrain de jouer - " + "`" + server.currentVideo.title + "`");
     }
 }
