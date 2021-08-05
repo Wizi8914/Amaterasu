@@ -22,7 +22,7 @@ module.exports = class GifCommand extends Command {
             return message.say(EmptyMessage)
         }
 
-        message.say('**Recherche...**').then(async (resultmessage) => {
+        message.say("**:clock4: Recherche... (`"+`${args}`+"`)**").then(async (resultmessage) => {
 
 
             let url = `https://api.giphy.com/v1/gifs/search?api_key=${process.env.GIPHY_KEY}&limit=30&q=${args}`

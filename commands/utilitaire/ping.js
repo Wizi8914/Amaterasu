@@ -12,7 +12,7 @@ module.exports = class PingCommand extends Command {
     }
 
     async run(message) {
-        message.say('**Calcule du ping...**').then((resultMessage) => {
+        message.say('**:clock4: Calcule du ping...**').then((resultMessage) => {
             const ping = resultMessage.createdTimestamp - message.createdTimestamp
 
             resultMessage.edit(`Latence du bot: ` + "`" + `${ping}` + "ms`")

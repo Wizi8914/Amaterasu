@@ -1,6 +1,8 @@
-const { VoiceConnection } = require('discord.js');
+const { VoiceConnection, MessageEmbed } = require('discord.js');
 const { Command, CommandoMessage } = require("discord.js-commando");
+const { botname, botimage } = require('../../config');
 const { UserNotInVoiceChannel, EmptyPlayMessage } = require('../../strings.json');
+const { MessageButton, MessageMenu, ButtonCollector} = require('discord-buttons')
 
 require('dotenv').config()
 
@@ -35,9 +37,8 @@ module.exports = class PlayCommand extends Command {
        //     return message.say(EmptyPlayMessage)
        // }
 
-
-        const res = this.client.manager.search(
-            message.content.slice(6),
+        const res = await this.client.manager.search(
+            args,
             message.author
           );
 
@@ -49,17 +50,78 @@ module.exports = class PlayCommand extends Command {
           });
 
 
-        if(player.state != 'CONNECTED') await player.connect()
+        voicechannel.join()
 
-       // voicechannel.join()
+//=======================================================
+
+        var value = "";
+
+        for (let i = 0; i < 5; i++) {
+            value += "**`" + (i + 1) + ".`** [" + res.tracks[i].title + "](" + res.tracks[i].uri +  ")\n";
+
+        }
+        
+        var embed = new MessageEmbed()
+            .setColor('BLUE')
+            .setTitle('Voici les 5 premiere vidéos correspondant à votre recherche')
+            .setFooter(botname, botimage)
+            .setTimestamp()
+            .addField('Choisiser une des video en cliquant sur le bouton approprié', value)
+
+//==========================================
+
+        const one = new MessageButton()
+            .setStyle('gray')
+            .setLabel('1')
+            .setID(1)
+        
+        const two = new MessageButton()
+            .setStyle('gray')
+            .setLabel('2')
+            .setID(2)
+
+        const three = new MessageButton()
+            .setStyle('gray')
+            .setLabel('3')
+            .setID(3)
+        
+        const four = new MessageButton()
+            .setStyle('gray')
+            .setLabel('4')
+            .setID(4)
+
+        const five = new MessageButton()
+            .setStyle('gray')
+            .setLabel('5')
+            .setID(5)
+
+
+        message.say({
+            embed: embed,
+            buttons: [one, two, three, four, five]
+        })
+
+        var numbutton = 0;
+        this.client.on("clickButton", async (button) => {
+            if(button.clicker.user.id === message.author.id) {
+                numbutton = button.id
+                button.reply.defer()
+            }
+        })
+
+        message.say(numbutton)
+
+//==============================================
+
 
      //  player.connect()
 
 
-       console.log(res)
+      // console.log(res)
 
-        console.log(player)
-
+        //console.log(player)
 
     }
 }
+
+

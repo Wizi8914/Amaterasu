@@ -18,7 +18,7 @@ module.exports = class imageCommand extends Command {
 
     async run(message, args) {
 
-        message.say('**Recherche...**').then((resultmessage) => {
+        message.say("**:clock4: Recherche... (`"+`${args}`+"`)**").then((resultmessage) => {
             const param = {
                 q: args,
                 tbm: 'isch',
@@ -30,7 +30,7 @@ module.exports = class imageCommand extends Command {
                 const img = data['images_results'][Math.floor(Math.random() * 100)].original
                 
                 var embed = new MessageEmbed()
-                    .setColor('RAMDOM')
+                    .setColor('BLUE')
                     .setTitle(`Image aléatoire de ${args}`)
                     .setImage(img)
                     .setURL(img)
