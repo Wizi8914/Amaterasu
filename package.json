@@ -34,6 +34,7 @@
     "moment": "^2.29.1",
     "node-fetch": "^2.6.1",
     "open-graph": "^0.2.1",
+    "pretty-ms": "^7.0.1",
     "spdl-core": "^2.0.2",
     "spotify-web-api-node": "^5.0.2",
     "weky": "^3.1.2",
