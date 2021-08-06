@@ -101,15 +101,15 @@ module.exports = class PlayCommand extends Command {
             buttons: [one, two, three, four, five]
         })
 
-        var numbutton = 0;
         this.client.on("clickButton", async (button) => {
             if(button.clicker.user.id === message.author.id) {
-                numbutton = button.id
+                var numbutton = button.id
+                button.message.edit('eee')
                 button.reply.defer()
             }
-        })
 
-        message.say(numbutton)
+            console.log(numbutton)
+        })
 
 //==============================================
 
