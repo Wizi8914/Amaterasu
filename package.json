@@ -13,7 +13,7 @@
     "url": "https://github.com/Wizi8914/Amaterasu.git"
   },
   "author": "Wizi",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "@discordjs/opus": "github:discordjs/opus",
     "canvas": "^2.7.0",
