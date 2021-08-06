@@ -70,56 +70,48 @@ module.exports = class PlayCommand extends Command {
 
 //==========================================
 
-        const one = new MessageButton()
+        var one = new MessageButton()
             .setStyle('gray')
             .setLabel('1')
             .setID(1)
-        
-        const two = new MessageButton()
+        var two = new MessageButton()
             .setStyle('gray')
             .setLabel('2')
             .setID(2)
-
-        const three = new MessageButton()
+        var three = new MessageButton()
             .setStyle('gray')
             .setLabel('3')
             .setID(3)
-        
-        const four = new MessageButton()
+        var four = new MessageButton()
             .setStyle('gray')
             .setLabel('4')
             .setID(4)
-
-        const five = new MessageButton()
+        var five = new MessageButton()
             .setStyle('gray')
             .setLabel('5')
             .setID(5)
 
+        message.say({embed: embed, buttons: [one, two, three, four, five]})
 
-        message.say({
-            embed: embed,
-            buttons: [one, two, three, four, five]
-        })
-
-        this.client.on("clickButton", async (button) => {
+        this.client.on('clickButton', async (button) => {
             if(button.clicker.user.id === message.author.id) {
                 var numbutton = button.id
-                button.message.edit('eee')
+
+                one = one.setDisabled()
+                two = two.setDisabled()
+                three = three.setDisabled()
+                four = four.setDisabled()
+                five = five.setDisabled()
+                
+                button.message.edit({embed: embed, buttons: [one, two, three, four, five]})
+
                 button.reply.defer()
+            
             }
 
-            console.log(numbutton)
+
+            message.say(`Vous avez choisi ${res.tracks[numbutton].title}`)
         })
-
-//==============================================
-
-
-     //  player.connect()
-
-
-      // console.log(res)
-
-        //console.log(player)
 
     }
 }
