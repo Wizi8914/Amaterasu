@@ -14,43 +14,46 @@ module.exports = class TestCommand extends Command {
     }
     
     async run(message, args) {
+      const { guild } = message
 
-     // const client = this;
+        guild.fetchInvites().then((invites) => {
+            const inviteCounter = {}
 
-       // const embed = new MessageEmbed()
-      //      .setTitle('osef')
-//            .setColor('RED')
+            invites.forEach((invite) => {
+                const { uses, inviter } = invite
+                const { username, discriminator } = inviter
 
-  //      const yes = new MessageButton()
-    //        .setStyle('green')
-      //      .setLabel('yes')
-        //    .setID('uwu')
+                const name = `${username}#${discriminator}`
 
-   //     const no = new MessageButton()
-     //       .setStyle('red')
-       //     .setLabel('no')
-         //   .setID('nouwu')
+                inviteCounter[name] = (inviteCounter[name] || 0) + uses
+            })
 
-    //    message.say({
-      //      embed: embed,
-        //    buttons: [yes,no]
-     //   })
+            const sortedInvites = Object.keys(inviteCounter).sort(
+                (a, b) => inviteCounter[b] - inviteCounter[a]
+            )
 
-      let totalMembers;
+            sortedInvites.length = 10
 
+            let replytext = " "
 
-      this.client.guilds.cache.size
+            let i = 0
 
-      let i = 0;
+            for (const invite of sortedInvites) {
+                const count = inviteCounter[invite]
+                i++
+                replytext += "`" + i + ".`" + `${invite} a inviter ${count} membre(s) !\n`
+            }
 
-      for (const guild of this.client.guilds.cache) {
-        i++
-        totalMembers = (await guild[1].name)
-      }
+            var embed = new MessageEmbed()
+            .setTitle(`TOP invite list`)
+            .setColor("BLUE")
 
-      console.log(totalMembers)
+            embed.addField("Liste:", replytext);
+            embed.setFooter(botname, botimage);
+            embed.setTimestamp()
 
-     // await database.push('info', totalMembers)
+            message.say(embed)
+        }) 
     }
 }
 

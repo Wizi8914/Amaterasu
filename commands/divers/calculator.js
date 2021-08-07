@@ -20,7 +20,7 @@ module.exports = class CalculatorName extends Command {
                 timestamp: true,
             },
             disabledQuery: 'La calculatrice a été desactiver',
-			invalidQuery: 'Le calcul est invalide',
+			invalidQuery: 'Le calcul est invalide !',
 			othersMessage: 'Seul <@{{author}}> peut utiliser ces boutons!',
         })
     }

@@ -6,6 +6,8 @@ const { MessageButton, MessageMenu, ButtonCollector} = require('discord-buttons'
 
 require('dotenv').config()
 
+const ytpl = require('ytpl')
+
 
 module.exports = class PlayCommand extends Command {
     constructor(client) {
@@ -33,9 +35,9 @@ module.exports = class PlayCommand extends Command {
             return message.say(UserNotInVoiceChannel)
         } 
         
-     //   if (!args) {
-       //     return message.say(EmptyPlayMessage)
-       // }
+        if (!args) {
+            return message.say(EmptyPlayMessage)
+        }
 
         const res = await this.client.manager.search(
             args,
@@ -54,6 +56,13 @@ module.exports = class PlayCommand extends Command {
 
 //=======================================================
 
+        if(ytpl.validateID(args)) {
+            return message.say("c'est une playlist")
+        }
+
+        if(args.startsWith('https://www.youtube.com/watch?v=')) {
+            return message.say("c'est une video")
+        }
         var value = "";
 
         for (let i = 0; i < 5; i++) {
@@ -73,23 +82,23 @@ module.exports = class PlayCommand extends Command {
         var one = new MessageButton()
             .setStyle('gray')
             .setLabel('1')
-            .setID(1)
+            .setID(0)
         var two = new MessageButton()
             .setStyle('gray')
             .setLabel('2')
-            .setID(2)
+            .setID(1)
         var three = new MessageButton()
             .setStyle('gray')
             .setLabel('3')
-            .setID(3)
+            .setID(2)
         var four = new MessageButton()
             .setStyle('gray')
             .setLabel('4')
-            .setID(4)
+            .setID(3)
         var five = new MessageButton()
             .setStyle('gray')
             .setLabel('5')
-            .setID(5)
+            .setID(4)
 
         message.say({embed: embed, buttons: [one, two, three, four, five]})
 
@@ -97,20 +106,22 @@ module.exports = class PlayCommand extends Command {
             if(button.clicker.user.id === message.author.id) {
                 var numbutton = button.id
 
-                one = one.setDisabled()
-                two = two.setDisabled()
-                three = three.setDisabled()
-                four = four.setDisabled()
-                five = five.setDisabled()
+                one.setDisabled()
+                two.setDisabled()
+                three.setDisabled()
+                four.setDisabled()
+                five.setDisabled()
                 
                 button.message.edit({embed: embed, buttons: [one, two, three, four, five]})
 
                 button.reply.defer()
+                
             
             }
 
 
             message.say(`Vous avez choisi ${res.tracks[numbutton].title}`)
+            message.say(numbutton)
         })
 
     }

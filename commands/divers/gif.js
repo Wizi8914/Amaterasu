@@ -31,7 +31,7 @@ module.exports = class GifCommand extends Command {
 
             const image = json.data[Math.floor(Math.random() * 30)].url
 
-            resultmessage.edit(`Gif Aléatoire de ${args}`);
+            resultmessage.edit(`Gif Aléatoire de ` + '`' + `${args}` + '`');
             message.say(image)
 
     //        const embed = new MessageEmbed()
