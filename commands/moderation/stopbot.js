@@ -30,6 +30,5 @@ module.exports = class stopbot extends Command {
         } else {
             message.say(`:x: Seul <@505762041789808641> le developeur du bot peut executer cette commande`)
         }
-       //this.client.destroy()
     }
 }
