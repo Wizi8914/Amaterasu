@@ -13,7 +13,7 @@ require('dotenv').config()
 const client = new CommandoClient({
     commandPrefix: '>',
     owner: '505762041789808641',
-    invite: 'https://discord.gg/WXSkpYauty'
+    invite: 'https://discord.gg/WXSkpYauty',
 });
 
 
@@ -163,9 +163,9 @@ client.once('disconnect', () => {
 
 client.once('ready', () => {
     console.log(`Connecté en tant que ${client.user.tag} - (${client.user.id})`);
-    client.user.setActivity('Amaterasu est actuellement en maintenance', { type: 'PLAYING' });
+    client.user.setActivity('⚙️ Amaterasu est actuellement en maintenance', { type: 'PLAYING' });
     client.manager.init(client.user.id)
-});
+}); 
 
 client.on('error', (error) => console.error(error));
 
