@@ -12,6 +12,11 @@ module.exports = class hentaiCommand extends Command {
             description: 'hentai image only NSFW channel !'
         });
     }
+
+    /**
+     * 
+     * @param {CommandoMessage} message 
+     */
  
     async run(message, args) {
         let http = await fetch('https://shiro.gg/api/images/nsfw/hentai');
