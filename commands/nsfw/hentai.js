@@ -1,6 +1,7 @@
 const { Command } = require('discord.js-commando');
 const fetch = require('node-fetch');
 const { MessageEmbed } = require('discord.js');
+const { botname, botimage } = require('../../config');
  
 module.exports = class hentaiCommand extends Command {
     constructor(client) {
