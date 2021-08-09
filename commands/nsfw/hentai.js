@@ -11,6 +11,9 @@ module.exports = class hentaiCommand extends Command {
     }
  
     async run(message, args) {
- 
+        let http = await fetch('https://shiro.gg/api/images/nsfw/hentai');
+        let responce = await http.json();
+
+        console.log(responce.url)
     }
 }
