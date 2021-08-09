@@ -1,12 +1,12 @@
 const { Command } = require('discord.js-commando');
  
-module.exports = class bondageCommand extends Command {
+module.exports = class hentaiCommand extends Command {
     constructor(client) {
         super(client, {
-            name: 'bondage',
+            name: 'hentai',
             group: 'nsfw',
-            memberName: 'bondage',
-            description: 'bondage image only NSFW channel !'
+            memberName: 'hentai',
+            description: 'hentai image only NSFW channel !'
         });
     }
  
