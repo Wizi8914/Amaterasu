@@ -102,7 +102,7 @@ module.exports = class PlayCommand extends Command {
 
         message.say({embed: embed, buttons: [one, two, three, four, five]})
 
-        this.client.on('clickButton', async (button) => {
+        this.client.once('clickButton', async (button) => {
             if(button.clicker.user.id === message.author.id) {
                 var numbutton = button.id
 
@@ -113,15 +113,11 @@ module.exports = class PlayCommand extends Command {
                 five.setDisabled()
                 
                 button.message.edit({embed: embed, buttons: [one, two, three, four, five]})
-
-                button.reply.defer()
-                
+                button.reply.defer() 
             
             }
 
-
             message.say(`Vous avez choisi ${res.tracks[numbutton].title}`)
-            message.say(numbutton)
         })
 
     }
