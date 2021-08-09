@@ -1,10 +1,11 @@
-const { CommandoClient, Client } = require('discord.js-commando');
+const { CommandoClient, Client, CommandoMessage } = require('discord.js-commando');
 const path = require('path');
 const Canvas = require('canvas');
 const { Discord } = require('discord.js'); 
 const { welcomesentence } = require('./strings.json');
 const jsoning = require('jsoning');
 const database = new jsoning('database.json');
+const { badwords } = require('./config');
 
 require('dotenv').config()
 
@@ -137,7 +138,23 @@ client.on('guildMemberAdd', (member) => {
 	member.roles.add(membrerole1);
 })
 
-//-----------------  REGGISTERING COMMANDS  -------------------------
+
+//-------------------------- badWords -----------------------------
+
+client.on('message', (message) => {
+    if(!message.channel.nsfw) {
+        if(badwords.some(word => message.content.toLocaleLowerCase().includes(word))){
+            message.delete()
+            message.say(':x: Vous ne pouvez utiliser ces mots seulement dans les salons NSFW !').then(async(resultmessage) => {
+                setTimeout(() => {
+                    resultmessage.delete()
+                }, 5000);
+            })
+        }
+    }
+});
+
+//-----------------  REGISTERING COMMANDS  -------------------------
 
 
 client.registry
