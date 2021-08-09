@@ -1,5 +1,7 @@
 const { Command, CommandoMessage } = require('discord.js-commando');
-const { default: fetch } = require('node-fetch');
+const fetch = require('node-fetch');
+const { MessageEmbed } = require('discord.js');
+const { botname, botimage } = require('../../config');
  
 module.exports = class bondageCommand extends Command {
     constructor(client) {
@@ -14,7 +16,6 @@ module.exports = class bondageCommand extends Command {
     /**
      * 
      * @param {CommandoMessage} message 
-     * @param {*} args 
      */
  
     async run(message, args) {
@@ -28,6 +29,15 @@ module.exports = class bondageCommand extends Command {
                     resultmessage.delete()
                 }, 5000);
             })
+        } else {
+            const embed = new MessageEmbed()
+                .setColor('GRAY')
+                .setTitle(':underage: Image aléatoire de bondage :underage: ')
+                .setURL(responce.url)
+                .setImage(responce.url)
+                .setFooter(botname, botimage)
+                .setTimestamp();
+            message.say(embed)
         }
     }
 }
