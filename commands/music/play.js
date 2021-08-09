@@ -42,7 +42,7 @@ module.exports = class PlayCommand extends Command {
         const res = await this.client.manager.search(
             args,
             message.author
-          );
+        );
 
         const player = this.client.manager.create({
             guild: message.guild.id,

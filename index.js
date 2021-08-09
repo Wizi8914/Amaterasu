@@ -140,7 +140,6 @@ client.on('guildMemberAdd', (member) => {
 
 
 //-------------------------- badWords -----------------------------
-
 client.on('message', (message) => {
     if(!message.channel.nsfw) {
         if(message.content === '>hentai') {
