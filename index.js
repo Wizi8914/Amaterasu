@@ -133,21 +133,7 @@ client.on('guildMemberAdd', (member) => {
 
 
 //-------------------------- badWords -----------------------------
-client.on('message', (message) => {
-    if(!message.channel.nsfw) {
-        if(message.content === '>hentai') {
-            return;
-        }
-        if(badwords.some(word => message.content.toLocaleLowerCase().includes(word) )){
-            message.delete()
-            message.say(':x: Vous ne pouvez utiliser ces mots seulement dans un salon NSFW !').then(async(resultmessage) => {
-                setTimeout(() => {
-                    resultmessage.delete()
-                }, 5000);
-            })
-        }
-    }
-});
+
 
 //-----------------  REGISTERING COMMANDS  -------------------------
 
