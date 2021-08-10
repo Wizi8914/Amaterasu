@@ -6,8 +6,8 @@ const { MessageButton, MessageMenu, ButtonCollector} = require('discord-buttons'
 
 require('dotenv').config()
 
-const ytpl = require('ytpl')
-
+const ytpl = require('ytpl');
+const { Player } = require('erela.js');
 
 module.exports = class PlayCommand extends Command {
     constructor(client) {
@@ -48,8 +48,8 @@ module.exports = class PlayCommand extends Command {
             guild: message.guild.id,
             voiceChannel: message.member.voice.channel.id,
             textChannel: message.channel.id,
-            selfDeafen: false,
-          });
+           // selfDeafen: false,
+        });
 
 
         voicechannel.join()
@@ -118,9 +118,24 @@ module.exports = class PlayCommand extends Command {
             }
 
             message.say(`Vous avez choisi ${res.tracks[numbutton].title}`)
+
+            //console.log(res.tracks[numbutton])
+
+            player.queue.add(res.tracks[numbutton])
+
+
+           // console.log(playekr.queue)
+
+            console.log(player.queue.length + 1)
+
+            if(!player.playing) {
+                player.play()
+                message.say('la je joue mdr')
+            } else {
+                message.say('la je joue pas')
+            }
         })
 
     }
 }
-
 

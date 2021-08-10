@@ -26,15 +26,6 @@ module.exports = {
     database
 }
 
-class DiscordDB extends Client {
-    constructor(props) {
-        super(props);
-
-
-        console.log(client.cache)
-    }
-}
-
 //--------------------- LAVALINK ------------------------
 
 
@@ -77,6 +68,8 @@ client.manager.on("nodeError", (node, error) => console.log(`Node ${node.options
 
 
 client.on("raw", (d) => client.manager.updateVoiceState(d));
+
+
 
 //---------------------Canvas-------------------------
 
