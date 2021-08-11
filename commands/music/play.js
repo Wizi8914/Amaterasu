@@ -44,8 +44,6 @@ module.exports = class PlayCommand extends Command {
             message.author
         );
 
-        console.log(res)
-
         const player = this.client.manager.create({
             guild: message.guild.id,
             voiceChannel: message.member.voice.channel.id,
@@ -130,12 +128,8 @@ module.exports = class PlayCommand extends Command {
 
             console.log(player.queue.length + 1)
 
-            if(!player.playing) {
-                player.play()
-                message.say('la je joue mdr')
-            } else {
-                message.say('la je joue pas')
-            }
+            if(!player.playing && !player.paused && !player.queue.size) player.play()
+            
         })
 
     }
