@@ -18,7 +18,7 @@ module.exports = class piCommand extends Command {
         const embed = new MessageEmbed()
             .setColor('BLUE')
             .setTitle('Valeur de PI')
-            .addField('Liste des 14 premier nombres:', `\`\`\`css\n${Math.PI}\`\`\``)
+            .addField('Liste des 15 premiers nombres:', `\`\`\`css\n${Math.PI}\`\`\``)
             .setFooter(botname, botimage)
             .setTimestamp();
 
