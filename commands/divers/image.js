@@ -1,5 +1,5 @@
 const { MessageEmbed } = require("discord.js");
-const { Command } = require("discord.js-commando");
+const { Command, CommandoMessage } = require("discord.js-commando");
 const SerApi = require('google-search-results-nodejs');
 const { botname, botimage } = require("../../config");
 const search = new SerApi.GoogleSearch(process.env.GOOGLE_API_KEY)
@@ -15,6 +15,12 @@ module.exports = class imageCommand extends Command {
             description: 'cherche une image sur google'
         })
     }
+
+    /**
+     * 
+     * @param {CommandoMessage} message 
+     */
+
 
     async run(message, args) {
 
@@ -38,9 +44,7 @@ module.exports = class imageCommand extends Command {
                     .setFooter(botname, botimage)
                     .setTimestamp()
                 
-                message.channel.bulkDelete(1).then(() => {
-                    message.say(embed)
-                })
+                resultmessage.delete().then(message.say(embed))
     
             }
     
