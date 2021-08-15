@@ -12,6 +12,3 @@ ECHO ==========================
 ECHO ==========================
 start cmd /k node index.js
 exit /s
-
-
-start cmd
