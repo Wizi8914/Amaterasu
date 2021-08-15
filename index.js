@@ -22,15 +22,15 @@ require('discord-buttons')(client)
 
 //----------------- DATABASE ---------------------
 
-module.exports = {
-    database
-}
+module.exports = database;
+
 
 //--------------------- LAVALINK ------------------------
 
 
 const { LavasfyClient } = require('lavasfy');
 const { Manager } = require('erela.js');
+const bugcommand = require('./commands/utilitaire/bug');
 
 const lavasfy = new LavasfyClient({
     clientID: process.env.SPOTIFY_CLIENT_ID,
@@ -186,3 +186,5 @@ client.on('error', (error) => console.error(error));
 
 
 client.login(process.env.DISCORD_TOKEN);
+
+console.log(bugcommand.description)
