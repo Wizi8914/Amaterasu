@@ -141,7 +141,7 @@ client.on('message', (message) => {
         }
         if(badwords.some(word => message.content.toLocaleLowerCase().includes(word) )){
             message.delete()
-            message.say(':x: Vous ne pouvez utiliser ces mots seulement dans un salon NSFW !').then(async(resultmessage) => {
+            message.say(':x: **Vous ne pouvez utiliser ces mots seulement dans un salon NSFW !**').then(async(resultmessage) => {
                 setTimeout(() => {
                     resultmessage.delete()
                 }, 5000);
@@ -186,5 +186,3 @@ client.on('error', (error) => console.error(error));
 
 
 client.login(process.env.DISCORD_TOKEN);
-
-console.log(bugcommand.description)
