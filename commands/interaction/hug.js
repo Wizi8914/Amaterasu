@@ -33,12 +33,18 @@ module.exports = class Hugcommand extends Command {
             return message.say(':x: Vous ne pouvez pas vous faire un câlin vous même !')
         }
 
+        try {
+            var memberName = member.username
+        } catch (error) {
+            return message.say(":x: Il faut entrer un nom d'utilisateur valide !")
+        }
+
         let response = await fetch('https://nekos.life/api/v2/img/hug');
         let json = await response.json();
         
         const embed = new MessageEmbed()
             .setColor('BLUE')
-            .setTitle(`:people_hugging: ${message.author.username} a fait un câlin a ${member.username}`)
+            .setTitle(`:people_hugging: ${message.author.username} a fait un câlin a ${memberName}`)
             .setImage(json.url)
             .setFooter(botname, botimage)
             .setTimestamp()

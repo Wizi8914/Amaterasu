@@ -33,12 +33,18 @@ module.exports = class Feedcommand extends Command {
             return message.say(':x: Vous ne pouvez pas vous nourire vous même !')
         }
 
+        try {
+            var memberName = member.username
+        } catch (error) {
+            return message.say(":x: Il faut entrer un nom d'utilisateur valide !")
+        }
+
         let response = await fetch('https://nekos.life/api/v2/img/feed');
         let json = await response.json();
         
         const embed = new MessageEmbed()
             .setColor('BLUE')
-            .setTitle(`:fork_and_knife: ${message.author.username} a nouri ${member.username}`)
+            .setTitle(`:fork_and_knife: ${message.author.username} a nouri ${memberName}`)
             .setImage(json.url)
             .setFooter(botname, botimage)
             .setTimestamp()

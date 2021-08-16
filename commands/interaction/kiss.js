@@ -1,5 +1,5 @@
 const { Command, CommandoMessage } = require('discord.js-commando');
-const { MessageEmbed } = require('discord.js');
+const { MessageEmbed, Guild } = require('discord.js');
 const { botname, botimage } = require('../../config');
  
 module.exports = class Kisscommand extends Command {
@@ -33,12 +33,18 @@ module.exports = class Kisscommand extends Command {
             return message.say(':x: Vous ne pouvez pas vous embrasser vous même !')
         }
 
+        try {
+            var memberName = member.username
+        } catch (error) {
+            return message.say(":x: Il faut entrer un nom d'utilisateur valide !")
+        }
+
         let response = await fetch('https://nekos.life/api/v2/img/kiss');
         let json = await response.json();
         
         const embed = new MessageEmbed()
             .setColor('BLUE')
-            .setTitle(`:kiss: ${message.author.username} a embrasser ${member.username}`)
+            .setTitle(`:kiss: ${message.author.username} a embrasser ${memberName}`)
             .setImage(json.url)
             .setFooter(botname, botimage)
             .setTimestamp()
