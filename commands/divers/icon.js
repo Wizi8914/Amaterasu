@@ -1,5 +1,7 @@
+const { MessageEmbed } = require('discord.js');
 const { Command } = require('discord.js-commando');
-const { botimage } = require('../../config.js')
+const { botimage, botname } = require('../../config.js')
+
 
 module.exports = class IconCommand extends Command {
     constructor(client) {
@@ -12,6 +14,13 @@ module.exports = class IconCommand extends Command {
     }
 
     async run(message) {
-        message.say(botimage);
+        const embed = new MessageEmbed()
+            .setColor('GREEN')
+            .setTitle(`Icon de \`${botname}\``)
+            .setImage(botimage)
+            .setFooter(botname, botimage)
+            .setTimestamp()
+
+        message.say(embed)
     }
 }

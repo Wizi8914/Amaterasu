@@ -26,6 +26,7 @@
     "ffmpeg": "0.0.4",
     "ffmpeg-static": "^4.2.7",
     "google-search-results-nodejs": "^2.0.1",
+    "google-translate-api": "^2.3.0",
     "jsoning": "^0.11.22",
     "lavasfy": "^2.3.0",
     "lyrics-finder": "^21.7.0",

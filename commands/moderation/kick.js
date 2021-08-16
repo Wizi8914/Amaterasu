@@ -15,7 +15,7 @@ module.exports = class KickCommand extends Command {
 
         if(!message.member.hasPermission("ADMINISTRATOR")) return message.say(UserMissingPermision);
 
-        if(!args[0]) return message.say(":x: Il faut mettre le nom d'un utilisateur !");
+        if(!args) return message.say(":x: Il faut mettre le nom d'un utilisateur !");
 
         if(!args[1].startsWith('@')) {
 
