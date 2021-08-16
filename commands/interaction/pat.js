@@ -2,13 +2,13 @@ const { Command, CommandoMessage } = require('discord.js-commando');
 const { MessageEmbed } = require('discord.js');
 const { botname, botimage } = require('../../config');
  
-module.exports = class Hugcommand extends Command {
+module.exports = class Patcommand extends Command {
     constructor(client) {
         super(client, {
-            name: 'hug',
+            name: 'pat',
             group: 'interaction',
-            memberName: 'hug',    
-            description: 'fait un calin a un joueur '
+            memberName: 'pat',    
+            description: 'fait un tape a un joueur '
         });
     }
 
@@ -28,12 +28,12 @@ module.exports = class Hugcommand extends Command {
         if(!args[1].startsWith('@')) {
             return message.say(':x: Il faut mentioner une personne et non écrire son pseudonime !')
         }
-        let response = await fetch('https://nekos.life/api/v2/img/hug');
+        let response = await fetch('https://nekos.life/api/v2/img/pat');
         let json = await response.json();
         
         const embed = new MessageEmbed()
             .setColor('BLUE')
-            .setTitle(`:people_hugging: ${message.author.username} a fait un câlin a ${member.username}`)
+            .setTitle(`:hand_splayed: ${message.author.username} a tapoter la tête de ${member.username}`)
             .setImage(json.url)
             .setFooter(botname, botimage)
             .setTimestamp()
