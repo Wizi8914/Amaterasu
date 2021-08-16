@@ -161,6 +161,7 @@ client.registry
 	.registerGroup('utilitaire')
 	.registerGroup('moderation')
     .registerGroup('nsfw')
+    .registerGroup('interaction')
     .registerCommandsIn(path.join(__dirname, 'commands'));
 
 client.server = {
