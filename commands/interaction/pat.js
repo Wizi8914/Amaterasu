@@ -19,11 +19,32 @@ module.exports = class Patcommand extends Command {
  
     async run(message, args) {
 
+        let response = await fetch('https://nekos.life/api/v2/img/pat');
+        let json = await response.json();
+
         if(!args) {
             return message.say(":x: Vous devez citer le nom d'un utilisateur !")
         }
 
-        let member = message.mentions.users.first();
+        if(args === 'random') {
+            for(let i = 0; i < 100; i++) {
+                var randomuser = message.guild.members.cache.random()
+                var username = randomuser.user.username
+                if(randomuser.user.id !== message.author.id) {
+                    break
+                }
+            }
+
+            const embed = new MessageEmbed()
+                .setColor('BLUE')
+                .setTitle(`:hand_splayed: ${message.author.username} a tapoter la tête de ${username}`)
+                .setImage(json.url)
+                .setFooter(botname, botimage)
+                .setTimestamp()
+        
+            message.say(embed)
+        } else {
+            let member = message.mentions.users.first();
 
         if(!args[1].startsWith('@')) {
             return message.say(':x: Il faut mentioner une personne et non écrire son pseudonime !')
@@ -38,9 +59,6 @@ module.exports = class Patcommand extends Command {
         } catch (error) {
             return message.say(":x: Il faut entrer un nom d'utilisateur valide !")
         }
-
-        let response = await fetch('https://nekos.life/api/v2/img/pat');
-        let json = await response.json();
         
         const embed = new MessageEmbed()
             .setColor('BLUE')
@@ -50,5 +68,7 @@ module.exports = class Patcommand extends Command {
             .setTimestamp()
         
         message.say(embed)
+
+        }
     }
 }
