@@ -28,6 +28,11 @@ module.exports = class Patcommand extends Command {
         if(!args[1].startsWith('@')) {
             return message.say(':x: Il faut mentioner une personne et non écrire son pseudonime !')
         }
+
+        if(message.author === member) {
+            return message.say(':x: Vous ne pouvez pas vous tapoter la tete vous même !')
+        }
+
         let response = await fetch('https://nekos.life/api/v2/img/pat');
         let json = await response.json();
         

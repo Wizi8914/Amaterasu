@@ -2,13 +2,13 @@ const { Command, CommandoMessage } = require('discord.js-commando');
 const { MessageEmbed } = require('discord.js');
 const { botname, botimage } = require('../../config');
  
-module.exports = class Hugcommand extends Command {
+module.exports = class Feedcommand extends Command {
     constructor(client) {
         super(client, {
-            name: 'hug',
+            name: 'feed',
             group: 'interaction',
-            memberName: 'hug',    
-            description: 'fait un calin a un joueur '
+            memberName: 'feed',    
+            description: 'nouri un joueur'
         });
     }
 
@@ -30,15 +30,15 @@ module.exports = class Hugcommand extends Command {
         }
 
         if(message.author === member) {
-            return message.say(':x: Vous ne pouvez pas vous faire un câlin vous même !')
+            return message.say(':x: Vous ne pouvez pas vous nourire vous même !')
         }
 
-        let response = await fetch('https://nekos.life/api/v2/img/hug');
+        let response = await fetch('https://nekos.life/api/v2/img/feed');
         let json = await response.json();
         
         const embed = new MessageEmbed()
             .setColor('BLUE')
-            .setTitle(`:people_hugging: ${message.author.username} a fait un câlin a ${member.username}`)
+            .setTitle(`:fork_and_knife: ${message.author.username} a nouri ${member.username}`)
             .setImage(json.url)
             .setFooter(botname, botimage)
             .setTimestamp()
