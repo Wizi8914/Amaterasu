@@ -1,5 +1,7 @@
 const { Command, CommandoMessage } = require('discord.js-commando');
-const translate = require('deepl')
+const translate = require('deepl');
+const nation = require('../../nation');
+const { MessageEmbed } = require('discord.js');
 
 require('dotenv').config()
 
@@ -19,9 +21,14 @@ module.exports = class TranslateCommand extends Command {
      */
  
     async run(message, args) {
-        
         const str = args.split(' ')
 
+        const nationlist = ["en","bg","zh","cs","da","nl","et","fi","fr","de","el","hu","id","it","ja","lt","pl","pt","ro","ru","es","sv","lv","sk","sl",]
+        
+        const source = nationlist.indexOf(str[0])
+        const target = nationlist.indexOf(str[1])
+
+        message.say(nation[source].ename)
 
         translate({
             free_api: true,
@@ -32,6 +39,21 @@ module.exports = class TranslateCommand extends Command {
         })
         .then(result => {
             message.say(result.data.translations[0].text)
+
+            const embed = new MessageEmbed()
+                .setColor('GRAY')
+                .setTitle('Traduction')
+                .addFields[
+                    {
+                       name: ``,
+                       value: args,
+                    },
+                    {
+                        name: ``,
+                        value: result.data.translations[0].text
+                    }
+                ]
+
         })
         .catch(error => {
             message.say(":x: Il semblerai qu'il y ai une erreur")

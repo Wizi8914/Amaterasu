@@ -1,4 +1,4 @@
-[
+const nation = [
     {
         code: "en",
         name: "English",
@@ -150,3 +150,6 @@
         emojie: ":flag_si:",
     },
 ];
+
+
+module.exports = nation;
