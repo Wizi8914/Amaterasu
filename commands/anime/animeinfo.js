@@ -1,6 +1,7 @@
 const { MessageEmbed } = require('discord.js');
 const { Command, CommandoMessage } = require('discord.js-commando');
-const fetch = require('node-fetch')
+const fetch = require('node-fetch');
+const { botimage } = require('../../config');
  
 module.exports = class AnimeinfoCommand extends Command {
     constructor(client) {
@@ -24,39 +25,40 @@ module.exports = class AnimeinfoCommand extends Command {
             message.say(":x: Vous devez citer le nom d'un anime !")
         }
 
-        const { data } = await fetch(`https://kitsu.io/api/edge/anime?filter[text]=${encodeURIComponent(args)}`).then((responce) => responce.json())
+        var page = (args.split(', ')[1] - 1)
+
+        if(!page) page = 0
+
+        const { data } = await fetch(`https://kitsu.io/api/edge/anime?filter[text]=${encodeURIComponent(args.split(/[e,]/)[0])}`).then((responce) => responce.json())
 
         const genre = await fetch(data[0].relationships.genres.links.related).then((responce) => responce.json())
 
-        let genrelist = []
-        for (let i = 0; i < genre.data.lenght; i++) {
-            
+        var genrelist = [];
+
+        for (let i = 0; i < genre.data.length; i++) {
+            genrelist += "`" + `${genre.data[i].attributes.name}` + "`, "
         }
-        console.log(genre.data.length)
-        //console.log(genre.data[0].attributes.name)
 
         if(!data || !data.length) return message.say(":x: Il s'emblerais qu'il y ai un probleme veuillez réessayer");
         
         const embed = new MessageEmbed()
-            .setTitle(`${data[0].attributes.titles.en} (${data[0].attributes.titles.en_jp}) (${data[0].attributes.titles.ja_jp})`)
+            .setTitle(`${data[page].attributes.titles.en} (${data[page].attributes.titles.en_jp}) (${data[0].attributes.titles.ja_jp})`)
             .setColor('#ff00ea')
-            .setDescription(data[0].attributes.synopsis)
-            .addField(":tv: Episodes", `${data[0].attributes.episodeCount} (${data[0].attributes.episodeLength} Minutes par Episode) (${data[0].attributes.totalLength} Minutes au total)`)
+            .setDescription('Utilisation: ' + "`" + '>anime <titre>, [page]' + "`" + '\n\n' + data[page].attributes.synopsis)
             .addFields(
-                { name: `:desktop: **Episodes (${data[0].attributes.episodeCount})**`, value: `:page_facing_up: Min Par Episode: ${data[0].attributes.episodeLength} \n :abacus: Min Total: ${data[0].attributes.totalLength}`, inline: true },
-                { name: ":diamond_shape_with_a_dot_inside: **Type**", value: `${data[0].attributes.type}`, inline: true },
-                { name: ":tv: Episodes", value: `jj`, inline: true }    
+                { name: `:desktop: **Episodes (${data[0].attributes.episodeCount})**`, value: `:page_facing_up: Min Par Ep: ${data[page].attributes.episodeLength} \n :abacus: Min Total: ${data[page].attributes.totalLength} \n :shinto_shrine: Status: ${data[page].attributes.status}`, inline: true },
+                { name: ":earth_africa: **Information:**", value: `:eyes: Type: ${data[page].type} \n :star: Genres: ${genrelist}`, inline: true },
+                { name: ":date: **Date:**", value: `:chart_with_upwards_trend: Début: ${data[page].attributes.startDate} \n :chart_with_downwards_trend: Fin: ${data[page].attributes.endDate}`, inline: true }    
             )
-
-            .addField("type")
-            .addField("status")
-            .addField("start end ")
-            .setThumbnail(data[0].attributes.posterImage && data[0].attributes.posterImage.original)
-            .setURL(`https://kitsu.io/anime/${data[0].id}`)
+            .setThumbnail(data[page].attributes.posterImage && data[page].attributes.posterImage.original)
+            .setURL(`https://kitsu.io/anime/${data[page].id}`)
+            .setFooter(`Page ${page + 1}/${data.length}`, botimage)
+            .setTimestamp()
+            
 
 
         message.say(embed)
 
-        //console.log(data[0])
+        console.log(data[0])
     }
 }
