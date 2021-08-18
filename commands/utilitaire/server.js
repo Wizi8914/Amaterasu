@@ -73,7 +73,7 @@ module.exports = class ServerCommand extends Command {
             .setColor('GREEN')
             .addFields(
                 { name: '**:id: ID du Server :**', value: `${message.guild.id}`, inline: true},
-                { name: `**:busts_in_silhouette: Membres (${message.guild.memberCount})**`, value: `:satellite: En Ligne : ${members.filter(member => !member.user.bot).size} \n 🤖 Bots : ${members.filter(member => member.user.bot).size}`, inline: true},
+                { name: `**:busts_in_silhouette: Membres (${message.guild.memberCount})**`, value: `:person_frowning: Humain : ${members.filter(member => !member.user.bot).size} \n 🤖 Bots : ${members.filter(member => member.user.bot).size}`, inline: true},
                 { name: `**:speech_balloon: Salon (${channels.size})**`, value: `:keyboard: Salon textuel: ${channels.filter(channel => channel.type === 'text').size} \n:microphone2: Salon Vocal: ${channels.filter(channel => channel.type === 'voice').size}`, inline: true}
             )
 
