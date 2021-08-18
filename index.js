@@ -162,6 +162,7 @@ client.registry
 	.registerGroup('moderation')
     .registerGroup('nsfw')
     .registerGroup('interaction')
+    .registerGroup('anime')
     .registerCommandsIn(path.join(__dirname, 'commands'));
 
 client.server = {
