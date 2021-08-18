@@ -28,13 +28,18 @@ module.exports = class WikipediaCommand extends Command {
         message.say("**:clock4: Recherche... (`"+`${args}`+"`)**").then(async (resultmessage) => {
             try {
                 await wiki.setLang('fr')
-                const wikipage = await wiki.page(args, {preload:true, fields:["intro"]})
+                const wikipage = await wiki.page(args, {preload:true, fields:["intro", "images"]})
+
+                //const image = wikipage._images[0].url
+
+                message.say(image)
 
                 const embed = new MessageEmbed()
                     .setColor('WHITE')
                     .setTitle(wikipage.title)
                     .setURL(wikipage.fullurl)
                     .setDescription(wikipage._intro + " [...]")
+                   // .setThumbnail(image)
                     .setFooter(botname, botimage)
                     .setTimestamp();
 
