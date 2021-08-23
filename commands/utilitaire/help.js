@@ -27,15 +27,15 @@ module.exports = class HelpCommand extends Command {
         
                 //================  ALL COMMANDS  =====================
 
-                var commandlist = [];
+                let commandlist = [];
                 for (let i = 2; i < this.client.registry.groups.size; i++) {
                     
                     for (var index = 0; index < this.client.registry.groups.toJSON()[i].commands.length - 1; index++) {
-                        commandlist += this.client.registry.groups.toJSON()[i].commands[index].split('')
+                        commandlist.push(this.client.registry.groups.toJSON()[i].commands[index])
                     }
                 }
    
-                message.say(commandlist)
+                console.log(commandlist)
                 //=================   MUSIQUE    ========================
 
                 if (args === "play" || args === "p") {
