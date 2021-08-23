@@ -22,7 +22,7 @@ module.exports = class WikipediaCommand extends Command {
     async run(message, args) {
 
         if(!args) {
-            message.say(":x: Il faut citer le nom d'une page wikipedia !")
+            return message.say(":x: Il faut citer le nom d'une page wikipedia !")
         }
 
         message.say("**:clock4: Recherche... (`"+`${args}`+"`)**").then(async (resultmessage) => {
@@ -31,8 +31,6 @@ module.exports = class WikipediaCommand extends Command {
                 const wikipage = await wiki.page(args, {preload:true, fields:["intro", "images"]})
 
                 //const image = wikipage._images[0].url
-
-                message.say(image)
 
                 const embed = new MessageEmbed()
                     .setColor('WHITE')
@@ -47,7 +45,7 @@ module.exports = class WikipediaCommand extends Command {
 
 
             } catch (error) {
-                resultmessage.edit(':x: Aucune Page correspondant a votre recherche a été trouvé !')
+                return resultmessage.edit(':x: Aucune Page correspondant a votre recherche a été trouvé !')
             }
         })
     }

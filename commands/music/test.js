@@ -1,4 +1,4 @@
-const { Command, CommandoMessage } = require('discord.js-commando');
+const { Command, CommandoMessage, CommandGroup } = require('discord.js-commando');
 const { MessageButton } = require('discord-buttons');
 const { database } = require('../..');
 const { Manager } = require('erela.js');
@@ -23,7 +23,19 @@ module.exports = class TestCommand extends Command {
             return message.say(`:x: Seul <@505762041789808641> le developeur du bot peut executer cette commande`)
         }
 
-        console.log(message.guild.members.cache)
+        var name;
+        var command;
+        for (let i = 2; i < this.client.registry.groups.size; i++) {
+            name = this.client.registry.groups.toJSON()[i].name
+            //console.log(name)
+            command = this.client.registry.groups.toJSON()[i].commands 
+            console.log(command)
+            
+        }
+
+        //console.log(this.client.registry.groups.toJSON())
+        //message.say(uwu)
+        //console.log(this.client.registry.groups.size)
     }
 }
 
