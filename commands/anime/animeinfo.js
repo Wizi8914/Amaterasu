@@ -58,7 +58,5 @@ module.exports = class AnimeinfoCommand extends Command {
 
 
         message.say(embed)
-
-        console.log(data[0])
     }
 }
