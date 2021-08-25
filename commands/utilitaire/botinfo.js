@@ -1,6 +1,6 @@
 const { MessageEmbed } = require('discord.js');
-const { Command } = require('discord.js-commando');
-const { version } = require('../../package.json');
+const { Command, CommandoMessage } = require('discord.js-commando');
+const { version, repository } = require('../../package.json');
 const { botimage, botname} = require('../../config.js');
 
 module.exports = class BotInfoCommand extends Command {
@@ -12,6 +12,11 @@ module.exports = class BotInfoCommand extends Command {
             description: 'info du bot',
         })
     }
+
+    /**
+     * 
+     * @param {CommandoMessage} message 
+     */
 
     async run(message) {
         let totalMembers = 0
@@ -55,6 +60,10 @@ module.exports = class BotInfoCommand extends Command {
                 {
                     name: 'Membres Total',
                     value: totalMembers,
+                },
+                {
+                    name: 'Repository',
+                    value: repository.url.replace('.git', ' ')
                 }
                 
             )

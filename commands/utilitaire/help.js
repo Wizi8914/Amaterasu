@@ -24,18 +24,7 @@ module.exports = class HelpCommand extends Command {
     }
 
     async run(message, args) {
-        
-                //================  ALL COMMANDS  =====================
-
-                let commandlist = [];
-                for (let i = 2; i < this.client.registry.groups.size; i++) {
-                    
-                    for (var index = 0; index < this.client.registry.groups.toJSON()[i].commands.length - 1; index++) {
-                        commandlist.push(this.client.registry.groups.toJSON()[i].commands[index])
-                    }
-                }
-   
-                console.log(commandlist)
+             
                 //=================   MUSIQUE    ========================
 
                 if (args === "play" || args === "p") {
@@ -417,7 +406,7 @@ module.exports = class HelpCommand extends Command {
                 .setTitle("Liste des commandes de " + botname)
                 .setDescription('Le prefix pour utiliser le Amaterasu est ' + "`>` \n" + "Information sur une commande " + "`>help <text>`");
 
-                var command = [];
+                let command = [];
                 for (let i = 2; i < this.client.registry.groups.size; i++) {
                     
                     for (var index = 0; index < this.client.registry.groups.toJSON()[i].commands.length - 1; index++) {
@@ -427,7 +416,7 @@ module.exports = class HelpCommand extends Command {
                 
                     embed.addField(`${emojilist[(i - 2)]} ${(this.client.registry.groups.toJSON()[i].name).toUpperCase()} :`, command)
 
-                    var command = []
+                    command = []
                 }
                 embed.setFooter(botname,botimage)
                 embed.setTimestamp()
@@ -435,8 +424,21 @@ module.exports = class HelpCommand extends Command {
                 message.say(embed)
             return;
         } else {
-            message.say(Commanddontexist);
-        }
+            let commandlist = [];
+                for (let i = 2; i < this.client.registry.groups.size; i++) {
+                    
+                    for (var index = 0; index < this.client.registry.groups.toJSON()[i].commands.length; index++) {
+                        commandlist.push(this.client.registry.groups.toJSON()[i].commands[index])
+                    }
+                }
 
+            console.log(commandlist) 
+
+            if (!commandlist.includes(args)) {
+                return message.say(Commanddontexist)
+            } else {
+                return message.say(":x: **Cette commande n'est pas encore implémentrer !**");
+            }
+        }
     }
 }
