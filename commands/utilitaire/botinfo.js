@@ -2,6 +2,7 @@ const { MessageEmbed } = require('discord.js');
 const { Command, CommandoMessage } = require('discord.js-commando');
 const { version, repository } = require('../../package.json');
 const { botimage, botname} = require('../../config.js');
+var cpuStat = require('cpu-stat');
 
 module.exports = class BotInfoCommand extends Command {
     constructor(client) {
@@ -20,22 +21,25 @@ module.exports = class BotInfoCommand extends Command {
 
     async run(message) {
         let totalMembers = 0
+        const client = this.client
 
         for (const guild of this.client.guilds.cache) {
             totalMembers += (await guild[1].members.fetch()).size
         }
 
-        const embed = new MessageEmbed()
+        cpuStat.usagePercent(function(err, percent, seconds) {
+
+            const embed = new MessageEmbed()
             .setColor('BLUE')
             .setFooter(botname,botimage)
             .setAuthor(
                 `Information de ${botname}`,
-                this.client.user.displayAvatarURL()
+                client.user.displayAvatarURL()
             )
             .addFields(
                 {
                     name: 'Tag du bot',
-                    value: this.client.user.tag,
+                    value: client.user.tag,
                 },
                 {
                     name: 'Version',
@@ -55,7 +59,7 @@ module.exports = class BotInfoCommand extends Command {
                 },
                 {
                     name: 'Nombre de serveur',
-                    value: this.client.guilds.cache.size
+                    value: client.guilds.cache.size
                 },
                 {
                     name: 'Membres Total',
@@ -64,6 +68,10 @@ module.exports = class BotInfoCommand extends Command {
                 {
                     name: 'Repository',
                     value: repository.url.replace('.git', ' ')
+                },
+                {
+                    name: 'CPU %',
+                    value: percent + '%'
                 }
                 
             )
@@ -71,6 +79,8 @@ module.exports = class BotInfoCommand extends Command {
             embed.setTimestamp()
 
         message.say(embed)
+
+        })
     }
 }
 

@@ -17,6 +17,7 @@
   "dependencies": {
     "@discordjs/opus": "github:discordjs/opus",
     "canvas": "^2.7.0",
+    "cpu-stat": "^2.0.1",
     "deepl": "^1.0.12",
     "deepl-web": "^1.2.1",
     "discord-buttons": "^4.0.0",
@@ -40,7 +41,6 @@
     "pretty-ms": "^7.0.1",
     "spdl-core": "^2.0.2",
     "spotify-web-api-node": "^5.0.2",
-    "translation-google": "^0.2.1",
     "weky": "^3.1.2",
     "wikipedia": "^1.1.2",
     "youtube-search": "^1.1.6",
