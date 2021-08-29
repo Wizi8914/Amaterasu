@@ -1,6 +1,6 @@
 {
   "name": "bot",
-  "version": "1.9.4",
+  "botversion": "1.9.4",
   "description": "Amaterasu for kinoko",
   "main": "index.js",
   "scripts": {

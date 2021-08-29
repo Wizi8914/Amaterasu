@@ -22,14 +22,18 @@ module.exports = class AnimeinfoCommand extends Command {
     async run(message, args) {
 
         if(!args) {
-            message.say(":x: Vous devez citer le nom d'un anime !")
+            return message.say(":x: Vous devez citer le nom d'un anime !")
         }
 
         var page = (args.split(', ')[1] - 1)
 
         if(!page) page = 0
 
-        const { data } = await fetch(`https://kitsu.io/api/edge/anime?filter[text]=${encodeURIComponent(args.split(/[e,]/)[0])}`).then((responce) => responce.json())
+        const { data } = await fetch(`https://kitsu.io/api/edge/anime?filter[text]=${encodeURIComponent(args)}`).then((responce) => responce.json())
+
+        if(!data[0]) {
+            message.say(":x: **Il semblerait qu'il y ait un probleme veuillez réessayer**")
+        }
 
         const genre = await fetch(data[0].relationships.genres.links.related).then((responce) => responce.json())
 

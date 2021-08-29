@@ -1,6 +1,6 @@
-const { MessageEmbed } = require('discord.js');
+const { MessageEmbed, version } = require('discord.js');
 const { Command, CommandoMessage } = require('discord.js-commando');
-const { version, repository } = require('../../package.json');
+const { botversion, repository } = require('../../package.json');
 const { botimage, botname} = require('../../config.js');
 var cpuStat = require('cpu-stat');
 
@@ -43,7 +43,7 @@ module.exports = class BotInfoCommand extends Command {
                 },
                 {
                     name: 'Version',
-                    value: version,
+                    value: botversion,
                 },
                 {
                     name: 'Développeur',
@@ -70,11 +70,24 @@ module.exports = class BotInfoCommand extends Command {
                     value: repository.url.replace('.git', ' ')
                 },
                 {
-                    name: 'CPU %',
+                    name: '% du CPU',
                     value: percent + '%'
+                },
+                {
+                    name: 'Version de Node.js',
+                    value: process.version
+                },
+                {
+                    name: 'Version de Discord.js',
+                    value: version
                 }
-                
             )
+            /*embed.addField("Links", [
+                ":star: [GitHub Repository](https://github.com/ravener/miyako)",
+                ":robot: [Upvote me at top.gg](https://top.gg/bot/397796982120382464)",
+                ":envelope_with_arrow: [Invite me to your server](https://discordapp.com/oauth2/authorize?client_id=397796982120382464&permissions=2016537702&scope=bot)",
+                ":video_game: [Join our Discord Server](https://discord.gg/mDkMbEh)"
+              ].join("\n")) */
 
             embed.setTimestamp()
 
@@ -83,5 +96,3 @@ module.exports = class BotInfoCommand extends Command {
         })
     }
 }
-
-
