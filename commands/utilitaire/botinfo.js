@@ -3,6 +3,7 @@ const { Command, CommandoMessage } = require('discord.js-commando');
 const { botversion, repository } = require('../../package.json');
 const { botimage, botname} = require('../../config.js');
 var cpuStat = require('cpu-stat');
+const prettyMilliseconds = require('pretty-ms');
 
 module.exports = class BotInfoCommand extends Command {
     constructor(client) {
@@ -67,7 +68,7 @@ module.exports = class BotInfoCommand extends Command {
                 `:chart_with_downwards_trend: **Total De Memoir utiliser :** ${(process.memoryUsage().heapTotal / 1024 / 1024).toFixed(2)} MB`,
                 `:bar_chart: **Memoire Utiliser :** ${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)} MB`,
                 `:chart_with_upwards_trend: **Pourcentage du CPU :** ${percent}%`,
-                `:arrows_counterclockwise: **Dernier restart :** ${process.uptime().toFixed(2)}s`
+                `:arrows_counterclockwise: **Dernier restart :** ${prettyMilliseconds(process.uptime().toFixed(2) * 1000)}`
             ].join("\n"))
             .addField("Liens:", [
                 `<:github:881639629529444403> [Repository Github](${repository.url.replace('.git', ' ')})`,

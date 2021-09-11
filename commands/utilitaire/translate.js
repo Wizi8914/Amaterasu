@@ -51,8 +51,8 @@ module.exports = class TranslateCommand extends Command {
 
         const nationlist = ["en","bg","zh","cs","da","nl","et","fi","fr","de","el","hu","id","it","ja","lt","pl","pt","ro","ru","es","sv","lv","sk","sl",]
         
-        const source = nationlist.indexOf(str[0])
-        const target = nationlist.indexOf(str[1])
+        const source = nationlist.indexOf(str[0].toLocaleLowerCase())
+        const target = nationlist.indexOf(str[1].toLocaleLowerCase())
 
         var messagecontent;
 
@@ -66,8 +66,8 @@ module.exports = class TranslateCommand extends Command {
             translate({
                 free_api: true,
                 text: messagecontent,
-                source_lang: str[0],
-                target_lang: str[1],
+                source_lang: str[0].toLocaleLowerCase(),
+                target_lang: str[1].toLocaleLowerCase(),
                 auth_key: process.env.DEEPL_API_KEY
             })
             .then(result => {

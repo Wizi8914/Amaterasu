@@ -22,6 +22,9 @@ module.exports = class nickCommand extends Command {
         if(args.length >= 32) return message.say(':x: votre pseudo doit contenir aux maximum 32 caractères')
         
 
-        await message.member.edit(args)
+
+        if (message.member.hasPermission('MANAGE_NICKNAMES')) {
+            message.member.setNickname(args)
+        }
     }
 }
