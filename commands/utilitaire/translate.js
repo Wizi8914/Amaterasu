@@ -29,7 +29,7 @@ module.exports = class TranslateCommand extends Command {
 
             for (let i = 0; i <= 20; i++) {
                 value += `${nation[i].emojie} **${(nation[i].code).toUpperCase()}** (${nation[i].ename}),  ${nation[(i + 1)].emojie} **${(nation[(i + 1)].code).toUpperCase()}** (${nation[(i + 1)].ename}),  ${nation[(i + 2)].emojie} **${(nation[(i + 2)].code).toUpperCase()}** (${nation[(i + 2)].ename}),  ${nation[(i + 3)].emojie} **${(nation[(i + 3)].code).toUpperCase()}** (${nation[(i + 3)].ename}),\n`;
-                i = i + 4
+                i = i + 3
             }
             value += `${nation[24].emojie} **${(nation[24].code).toUpperCase()}** (${nation[24].ename})`
 
