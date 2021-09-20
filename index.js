@@ -4,7 +4,7 @@ const Canvas = require('canvas');
 const { Discord } = require('discord.js'); 
 const { welcomesentence } = require('./strings.json');
 const jsoning = require('jsoning');
-const database = new jsoning('database.json');
+const db = new jsoning('database.json');
 const { badwords } = require('./config');
 
 require('dotenv').config()
@@ -22,7 +22,7 @@ require('discord-buttons')(client)
 
 //----------------- DATABASE ---------------------
 
-module.exports = database;
+module.exports = db;
 
 
 //--------------------- LAVALINK ------------------------
@@ -30,7 +30,6 @@ module.exports = database;
 
 const { LavasfyClient } = require('lavasfy');
 const { Manager } = require('erela.js');
-const bugcommand = require('./commands/utilitaire/bug');
 
 const lavasfy = new LavasfyClient({
     clientID: process.env.SPOTIFY_CLIENT_ID,
