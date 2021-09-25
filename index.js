@@ -138,7 +138,7 @@ client.on('message', (message) => {
         if(message.content === '>hentai') {
             return;
         }
-        if(badwords.some(word => message.content.toLocaleLowerCase().includes(word) )){
+        if(badwords.some(word => message.content.toLocaleLowerCase().split(/ +/).includes(word) )){
             message.delete()
             message.say(':x: **Vous ne pouvez utiliser ces mots seulement dans un salon NSFW !**').then(async(resultmessage) => {
                 setTimeout(() => {

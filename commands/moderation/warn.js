@@ -41,12 +41,18 @@ module.exports = class WarnCommand extends Command {
 
         message.say(member.id)
 
-        db.clear()
-        db.set("warn", 2)
-
         if(await db.get(member.id) == false) {
-            db.push(member.id, 'test')
+            db.set(member.id, 1)
         }
 
+        console.log(db.get(member.id))
+
+        db.math(member.id, "add", 1)
+
+        if(db.get(member.id) == 1) {
+            message.say('test')
+            db.math(member.id, "add", 1)
+        }
     }
 }
+

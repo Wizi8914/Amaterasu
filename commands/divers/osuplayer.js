@@ -19,7 +19,7 @@ module.exports = class OsuplayerCommand extends Command {
             description: 'information of player'
         });
     }
- 
+
     async run(message, args) {
 
         message.say('dont work')
