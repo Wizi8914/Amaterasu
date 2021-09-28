@@ -50,7 +50,7 @@ module.exports = class BotInfoCommand extends Command {
                 `:hash: **Tag du bot:** ${client.user.tag}`,
                 `:gear: **Version du bot :** ${botversion}`,
                 `:pushpin: **Préfix du bot :** ${message.guild.commandPrefix}`,
-                `<:discorddeveloperbadge:882009291907801089> **Développeur :** WIZI#3492`
+                `<:discorddeveloperbadge:892323387408519218> **Développeur :** WIZI#3492`
             ].join("\n"))
             .addField("Information Serveurs:", [
                 `:notepad_spiral: **Nombre de server :** ${client.guilds.cache.size}`,
@@ -61,8 +61,8 @@ module.exports = class BotInfoCommand extends Command {
                 `:clipboard: **Nombre de catégories :** ${catelist}`
               ].join("\n"))
             .addField("Versions:", [
-                `<:nodejs:881986645480591410> **Version de Node.js :** ${process.version}`,
-                `<:discordjs:881987374802935908> **Version de Discord.js :** v${version}`
+                `<:nodejs:892323938397483018> **Version de Node.js :** ${process.version}`,
+                `<:discordjs:892324059847741490> **Version de Discord.js :** v${version}`
               ].join("\n"))
             .addField('Statistique machine:', [
                 `:chart_with_downwards_trend: **Total De Memoir utiliser :** ${(process.memoryUsage().heapTotal / 1024 / 1024).toFixed(2)} MB`,
@@ -71,7 +71,7 @@ module.exports = class BotInfoCommand extends Command {
                 `:arrows_counterclockwise: **Dernier restart :** ${prettyMilliseconds(process.uptime().toFixed(2) * 1000)}`
             ].join("\n"))
             .addField("Liens:", [
-                `<:github:881639629529444403> [Repository Github](${repository.url.replace('.git', ' ')})`,
+                `<:github:892323399806890084> [Repository Github](${repository.url.replace('.git', ' ')})`,
                 ":globe_with_meridians: [Site Web](https://amaterasu-dev.netlify.app/)"
             ].join("\n"))
 
